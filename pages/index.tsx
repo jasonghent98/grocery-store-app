@@ -2,8 +2,10 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import axios from 'axios'
 
-const Home: NextPage = () => {
+const Home: NextPage = ({data}: any) => {
+
   return (
     <div className={styles.container}>
       <Head>
@@ -67,6 +69,18 @@ const Home: NextPage = () => {
       </footer>
     </div>
   )
+}
+
+
+export async function getServerSideProps() {
+
+  const {data} = await axios.get('http://localhost:3000/api/hello')
+
+  return {
+    props: {
+      data
+    }
+  }
 }
 
 export default Home
