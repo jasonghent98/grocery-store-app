@@ -19,7 +19,7 @@ const Home: NextPage = ({data}: any) => {
         <link rel="icon" href="/favicon.ico" />
       </Head> */}
       <div className="flex flex-row justify-center items-center h-5/6 w-screen">
-          <SearchForProducts />
+          <SearchForProducts/> 
       </div>
     </div>
   )
