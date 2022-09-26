@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "jest --verbose ./tests"
   },
   "dependencies": {
     "axios": "^0.27.2",
