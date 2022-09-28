@@ -17,7 +17,7 @@ export default async function getProductByName (req: any, res: any): Promise<any
             const {data} = value
             const {search_results} = data
             console.log(search_results)
-            return value;
+            return search_results;
         } else {
             const hours = 72;
             console.log('running cache miss')
@@ -26,7 +26,8 @@ export default async function getProductByName (req: any, res: any): Promise<any
             const {search_results} = data
             console.log(search_results)
             cacheData.put(url, res, hours * 1000 * 60 * 60);
-            return data;
+            return search_results;
         }
     }
+    return res.status(405).end()
 }
