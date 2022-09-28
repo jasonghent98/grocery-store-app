@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import axios from 'axios'
-import SearchForProducts from '../components/searchForProducts'
+import SearchForProducts from '../components/SearchForProducts'
 import Navbar from '../components/Navbar'
 
 const Home: NextPage = ({data}: any) => {
