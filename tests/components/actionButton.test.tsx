@@ -26,7 +26,6 @@ describe('Search Products Button', () => {
         it('should receive user input as props', () => {
             const {getByTestId} = render(searchProductsButtonJSX)
             const getButton = getByTestId('searchProductsButton')
-            console.log(getButton)
             expect(getButton).toBeInTheDocument()
         })
     })
