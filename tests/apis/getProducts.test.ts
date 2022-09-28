@@ -7,7 +7,14 @@ describe('getProductName()', () => {
             item: 'salad'
         }
     }
+
+    const json = jest.fn()
+    const status = jest.fn(() => {
+        return {
+            json
+        }
+    })
     
-    
+
 }) 
  

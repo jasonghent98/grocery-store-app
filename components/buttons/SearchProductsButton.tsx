@@ -4,12 +4,14 @@ import React from 'react'
 const SearchProductsButton = ({item}: any) => {
   
   const itemHandler = async () => {
-    if (item) {
-      const data = {
-        item
-      }
+    const query = item.split(' ')
+
+    // we can implement more specific cases of err handling later, but for now handle case where empty string is provided as input
+    if (query.length && query[0] != '') {
+      const data = {query}
       await axios.post('http://localhost:3000/api/getProducts', data)
     }
+
   }
 
   return (

@@ -7,18 +7,26 @@ import cacheData from 'memory-cache'
 export default async function getProductByName (req: any, res: any): Promise<any> {
     // handle the data passed in from front-end and call the walmart api with it
     if (req.method === 'POST') {
-        const url = `https://api.bluecartapi.com/request?api_key=${process.env.API_KEY}&type=search&search_term=highlighter+pens&sort_by=best_seller`
-        const {item}  = req.body
+        // destructure query and add words as params into request
+        const {query}  = req.body
+        const searchTerm = query.join('+')
+        const url = `https://api.bluecartapi.com/request?api_key=${process.env.API_KEY}&type=search&search_term=${searchTerm}&sort_by=best_seller`
         const value = cacheData.get(url);
         if (value) {
-            console.log('cached!', value)
+            console.log('cached!')
+            const {data} = value
+            const {search_results} = data
+            console.log(search_results)
             return value;
         } else {
-            const hours = 24;
+            const hours = 72;
+            console.log('running cache miss')
             const res = await axios.get(url);
             const {data} = res
+            const {search_results} = data
+            console.log(search_results)
             cacheData.put(url, res, hours * 1000 * 60 * 60);
-            // return data;
+            return data;
         }
     }
 }
