@@ -1,8 +1,10 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import SearchBarOverlay from './SearchBarOverlay'
 import SearchProductsButton from './buttons/SearchProductsButton'
 
 const SearchForProducts = () => {
+  const [item, setItem] = useState('')
+
   return (
     <div className='flex justify-center items-center w-5/6 h-full'>
         <SearchBarOverlay>
@@ -11,10 +13,15 @@ const SearchForProducts = () => {
                 <p className='lg:text-3xl md:text-3xl text-xl'>What are you searching for?</p>
               </div>
               <div className='w-full h-1/3'>
-                <input type="text" className='rounded w-full h-2/5 text-black bg-gray-200 relative placeholder:italic pl-3 placeholder:xl:text-2xl' placeholder='Enter Item'/>
+                <input 
+                  type="text" 
+                  className='rounded w-full h-2/5 text-black bg-gray-200 relative placeholder:italic pl-3 placeholder:xl:text-2xl' 
+                  placeholder='Enter Item'
+                  onChange={(e) => setItem(e.target.value)}
+                  />
               </div>
               <div className='h-1/3'>
-                <SearchProductsButton />
+                <SearchProductsButton item={item} />
               </div>
             </div>
         </SearchBarOverlay>

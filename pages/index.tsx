@@ -7,7 +7,6 @@ import SearchForProducts from '../components/SearchForProducts'
 import Navbar from '../components/Navbar'
 
 const Home: NextPage = ({data}: any) => {
-
   return (
     <div className='flex flex-col justify-center items-center bg-gray-300 h-screen'>
       <div className='relative bottom-6 h-1/6 shadow'>
