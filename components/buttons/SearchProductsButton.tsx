@@ -1,15 +1,16 @@
 import axios from 'axios'
 import React from 'react'
+import { userInputHandler } from '../../pages/api/getProducts'
 
 const SearchProductsButton = ({item}: any) => {
   
   const itemHandler = async () => {
     const query = item.split(' ')
-
     // we can implement more specific cases of err handling later, but for now handle case where empty string is provided as input
     if (query.length && query[0] != '') {
       const data = {query}
-      await axios.post('http://localhost:3000/api/getProducts', data)
+      // save the results of the request and save them as state in your global state store
+      const listOfItems: any = await userInputHandler('http://localhost:3000/api/getProducts', data)
     }
 
   }
