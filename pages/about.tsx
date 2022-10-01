@@ -27,8 +27,8 @@ const About = () => {
 
       {/* mission statement here */}
       <div className="flex gap-x-2 justify-center items-center h-5/6 bg-gray-300">
-        <div className='flex justify-center bg-green-300 w-1/2 ml-10'>
-          <p className='text-red-500 h-4/6'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta, nemo sit. Necessitatibus similique odit provident. Sunt neque recusandae consequatur officiis, facere natus laudantium praesentium reprehenderit molestiae veniam laboriosam dignissimos. Vel!
+        <div className='flex justify-center w-1/2 ml-10'>
+          <p className='text-[#FF6B18] h-4/6'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta, nemo sit. Necessitatibus similique odit provident. Sunt neque recusandae consequatur officiis, facere natus laudantium praesentium reprehenderit molestiae veniam laboriosam dignissimos. Vel!
         Tempora facilis, deleniti autem vitae assumenda inventore mollitia pariatur! Autem quia excepturi maiores, voluptatibus distinctio dignissimos et cupiditate repellat? Soluta eveniet mollitia recusandae temporibus perferendis ad quod voluptate inventore nesciunt.
         Quam vero quos atque reprehenderit id, blanditiis iste eum animi vitae explicabo consequatur fuga quidem voluptatum autem laudantium rerum neque qui sequi repellat, ab culpa minima cumque? Molestias, dignissimos? Soluta!
         Ab autem debitis obcaecati quibusdam blanditiis, quam libero iure reiciendis omnis enim iste possimus voluptatem sapiente non tempora praesentium cum suscipit accusamus! Soluta itaque ab sit accusantium? Numquam, pariatur eaque!
@@ -48,11 +48,11 @@ const About = () => {
       </div>
 
       {/* stores we offer data from  */}
-      <div className='bg-gray-200 overflow-scroll'>
+      {/* <div className='bg-gray-200 overflow-scroll'>
         <div className="flex justify-center h-full text-red-700">1</div>
         <div className="flex justify-center h-full text-red-700">2</div>
         <div className="flex justify-center h-full text-red-700">3</div>
-      </div>
+      </div> */}
 
     </div>
   )
