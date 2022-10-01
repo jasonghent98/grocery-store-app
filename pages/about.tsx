@@ -14,7 +14,7 @@ const About = () => {
           <div className='flex flex-col h-5/6'>
             <div className='flex flex-col justify-center items-center h-full gap-8'>
             <p className='text-black font-semibold text-3xl'>Welcome</p>
-            <div className="flex flex-col gap-y-4 text-black font-semibold text-5xl">
+            <div className="flex flex-col gap-y-4 text-black font-semibold sm:text-3xl lg:text-5xl">
                 <div className='flex justify-center'>
                   <p className='text-[#FF6B18]'>At GrocerySmart, we believe</p><br/>
                 </div>
@@ -26,17 +26,15 @@ const About = () => {
       </div>
 
       {/* mission statement here */}
-      <div className="flex gap-x-2 justify-center items-center h-5/6 bg-gray-300">
-        <div className='flex flex-col justify-center w-1/2 ml-10'>
-          <h1 className='text-black font-bold'>Our Mission To You:</h1>
+      <div className="flex gap-x-8 justify-around items-center h-5/6 bg-gray-300">
+        <div className='flex flex-col justify-center w-1/2'>
+          <h1 className='text-black text-3xl font-bold mb-4'>Our Mission To You:</h1>
           <p className='text-[#FF6B18] h-4/6'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta, nemo sit. Necessitatibus similique odit provident. Sunt neque recusandae consequatur officiis, facere natus laudantium praesentium reprehenderit molestiae veniam laboriosam dignissimos. Vel!
         Tempora facilis, deleniti autem vitae assumenda inventore mollitia pariatur! Autem quia excepturi maiores, voluptatibus distinctio dignissimos et cupiditate repellat? Soluta eveniet mollitia recusandae temporibus perferendis ad quod voluptate inventore nesciunt.
-        Quam vero quos atque reprehenderit id, blanditiis iste eum animi vitae explicabo consequatur fuga quidem voluptatum autem laudantium rerum neque qui sequi repellat, ab culpa minima cumque? Molestias, dignissimos? Soluta!
-        Ab autem debitis obcaecati quibusdam blanditiis, quam libero iure reiciendis omnis enim iste possimus voluptatem sapiente non tempora praesentium cum suscipit accusamus! Soluta itaque ab sit accusantium? Numquam, pariatur eaque!
-        Quis aperiam, sapiente ullam minima accusamus nisi est! Incidunt illum similique animi quae possimus corporis deleniti reiciendis, est molestias commodi fugit, voluptatem nam nesciunt quod consequatur recusandae totam sint velit?
+        Quam vero quos atque reprehenderit id
           </p>
         </div>
-        <div className='flex justify-center w-1/2'>
+        <div className='flex justify-center w-1/2 hidden lg:contents'>
           <Image 
             src={'https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80'}
             className='w-full'
