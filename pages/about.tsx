@@ -27,7 +27,8 @@ const About = () => {
 
       {/* mission statement here */}
       <div className="flex gap-x-2 justify-center items-center h-5/6 bg-gray-300">
-        <div className='flex justify-center w-1/2 ml-10'>
+        <div className='flex flex-col justify-center w-1/2 ml-10'>
+          <h1 className='text-black font-bold'>Our Mission To You:</h1>
           <p className='text-[#FF6B18] h-4/6'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta, nemo sit. Necessitatibus similique odit provident. Sunt neque recusandae consequatur officiis, facere natus laudantium praesentium reprehenderit molestiae veniam laboriosam dignissimos. Vel!
         Tempora facilis, deleniti autem vitae assumenda inventore mollitia pariatur! Autem quia excepturi maiores, voluptatibus distinctio dignissimos et cupiditate repellat? Soluta eveniet mollitia recusandae temporibus perferendis ad quod voluptate inventore nesciunt.
         Quam vero quos atque reprehenderit id, blanditiis iste eum animi vitae explicabo consequatur fuga quidem voluptatum autem laudantium rerum neque qui sequi repellat, ab culpa minima cumque? Molestias, dignissimos? Soluta!
@@ -48,11 +49,10 @@ const About = () => {
       </div>
 
       {/* stores we offer data from  */}
-      {/* <div className='bg-gray-200 overflow-scroll'>
-        <div className="flex justify-center h-full text-red-700">1</div>
-        <div className="flex justify-center h-full text-red-700">2</div>
-        <div className="flex justify-center h-full text-red-700">3</div>
-      </div> */}
+      <div className='flex flex-col gap-y-4 justify-center items-center h-full bg-gray-200 overflow-scroll'>
+        <div className='text-5xl'>Data on dozens of grocery stores<br/><span className='flex justify-center text-[#FF6B18]'> right at your fingertips</span></div>
+        <div>animations here</div>
+      </div>
 
     </div>
   )
