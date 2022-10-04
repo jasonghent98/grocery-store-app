@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
 import Image from 'next/image'
-import { ifError } from 'assert'
+
 
 const About = () => {
   return (
@@ -48,9 +48,13 @@ const About = () => {
 
       {/* stores we offer data from  */}
       <div className='flex flex-col gap-y-4 justify-center items-center h-full bg-gray-200 overflow-scroll'>
-        <div className='text-5xl'>Data on dozens of grocery stores<br/><span className='flex justify-center text-[#FF6B18]'> right at your fingertips</span></div>
-        <div>animations here</div>
+        <div className='text-5xl'>Data on dozens of grocery stores<br/><span className='flex justify-center text-[#FF6B18]'>right at your fingertips</span></div>
+        {/* <div className='testing123 hover:translate-x-full transition-transform'> */}
+              <div className='another'>test</div>
+        {/* </div> */}
       </div>
+
+
 
     </div>
   )
