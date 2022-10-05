@@ -60,7 +60,7 @@ justify-content: center;
 
 */
 
-@keyframes example {
+@keyframes img1 {
   0%   {
     left: -60%;
     background-color: red;
@@ -73,18 +73,51 @@ justify-content: center;
   }
   100% {
     background-color: green;
+	right: 50%;
   }
 }
 
-.another {
+@keyframes img2 {
+	0%   {
+	  left: -60%;
+	  background-color: red;
+	}
+	25%  {
+	  background-color: yellow;
+	}
+	50%  {
+	  background-color: blue;
+	}
+	100% {
+	  background-color: green;
+	  right: 50%;
+	}
+}
+
+  
+.img1 {
     width: 100px;
     height: 100px;
     background-color: red;
     position: relative;
-    left: 60%;
+    left: 100%;
     top: 12%;
-    animation-name: example;
-    animation-duration: 5s;
+	margin-right: 10%;
+    animation-name: img1;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.img2 {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    position: relative;
+    left: 100%;
+	top: 12%;
+    animation-name: img2;
+    animation-duration: 10s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
 }
