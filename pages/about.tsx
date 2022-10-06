@@ -9,10 +9,12 @@ const About = () => {
   return (
     <div className='bg-gray-200 h-screen overflow-scroll'>
       <div className='flex flex-col justify-center items-center h-full'>
-        
-          <div className='relative bottom-6 h-1/6 shadow'>
+        <div className='h-2/6'>
+          <div className='relative bottom-6 h-3/5 shadow'>
             <Navbar/>
           </div>
+        </div>
+            
           <div className='flex flex-col h-5/6'>
             <div className='flex flex-col justify-center items-center h-full gap-8'>
             <p className='text-black font-bold text-3xl sm:text-5xl md:text-6xl lg:text-7xl'>Welcome</p>
@@ -29,8 +31,9 @@ const About = () => {
 
       {/* mission statement here */}
       <div className="flex flex-col gap-x-8 justify-around items-center h-5/6 bg-gray-300 w-full">
+        {/* container for just the text */}
         <div className="flex flex-col justify-center mx-8 my-8 gap-y-4 text-black font-semibold sm:text-3xl lg:text-5xl text-center">
-          <h1 className='text-black md:text-5xl sm:text-4xl text-2xl font-bold mb-4'>Our Mission To You:</h1>
+          <h1 className='text-black md:text-5xl sm:text-4xl text-2xl font-bold mb-4 mt-48'>Our Mission To You:</h1>
           <p className='text-[#FF6B18] text-md sm:text-2xl h-4/6'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta, nemo sit. Necessitatibus similique odit provident. Sunt neque recusandae consequatur officiis, facere natus laudantium praesentium reprehenderit molestiae veniam laboriosam dignissimos. Vel!
         Tempora facilis, deleniti autem vitae assumenda inventore mollitia pariatur! Autem quia excepturi maiores, voluptatibus distinctio dignissimos et cupiditate repellat? Soluta eveniet mollitia recusandae temporibus perferendis ad quod voluptate inventore nesciunt.
         Quam vero quos atque reprehenderit id
