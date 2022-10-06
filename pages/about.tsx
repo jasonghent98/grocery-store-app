@@ -2,8 +2,7 @@ import React, {useEffect, useState} from 'react'
 import Navbar from '../components/Navbar'
 import Image from 'next/image'
 import getImages from './api/proxyForImages.ts'
-import { logosHandlerInput } from '../types/getLogosRequest'
-import logo from '../public/globals.jpeg'
+import Walmart from '../components/logos/Walmart'
 
 const About = () => {
 
@@ -31,8 +30,8 @@ const About = () => {
       {/* mission statement here */}
       <div className="flex gap-x-8 justify-around items-center h-5/6 bg-gray-300">
         <div className='flex flex-col justify-center w-1/2'>
-          <h1 className='text-black text-3xl font-bold mb-4'>Our Mission To You:</h1>
-          <p className='text-[#FF6B18] h-4/6'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta, nemo sit. Necessitatibus similique odit provident. Sunt neque recusandae consequatur officiis, facere natus laudantium praesentium reprehenderit molestiae veniam laboriosam dignissimos. Vel!
+          <h1 className='text-black text-5xl font-bold mb-4'>Our Mission To You:</h1>
+          <p className='text-[#FF6B18] text-3xl h-4/6'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta, nemo sit. Necessitatibus similique odit provident. Sunt neque recusandae consequatur officiis, facere natus laudantium praesentium reprehenderit molestiae veniam laboriosam dignissimos. Vel!
         Tempora facilis, deleniti autem vitae assumenda inventore mollitia pariatur! Autem quia excepturi maiores, voluptatibus distinctio dignissimos et cupiditate repellat? Soluta eveniet mollitia recusandae temporibus perferendis ad quod voluptate inventore nesciunt.
         Quam vero quos atque reprehenderit id
           </p>
@@ -51,22 +50,9 @@ const About = () => {
 
       {/* stores we offer data from  */}
       <div className='flex flex-col gap-y-4 justify-center items-center h-full bg-gray-200 overflow-scroll'>
-        <div className='text-5xl'>Data on dozens of grocery stores<br/><span className='flex justify-center text-[#FF6B18]'>right at your fingertips</span></div>
-        <div className=''>
-            <div className='flex w-screen testing'>
-              {/* {logos.map((logoObject: any, index: number) => ( */}
-               <Image 
-                className=''
-                key={1}
-                alt='grocery logo'
-                src={logo}
-                width={200}
-                height={200}
-                /> 
-            {/* ))}  */}
-
-            </div>
-             
+        <div className='md:text-5xl text-3xl'>Data on several grocery stores<br/><span className='flex justify-center text-[#FF6B18]'>all in one place.</span></div>
+        <div>
+          <Walmart />             
         </div>
       </div>
 

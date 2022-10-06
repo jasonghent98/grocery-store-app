@@ -60,26 +60,33 @@ justify-content: center;
 
 */
 
- @keyframes img1 {
-  /* 0%   {
-    left: -60%;
-    background-color: red;
-  }
-  25%  {
-    background-color: yellow;
-  }
-  50%  {
-    background-color: orange;
-  }
-  100% {
-	right: 70%; */
+ @keyframes smallScreen {
   from {
-	transform: translateX(0vw);
+	transform: translateX(-30vw);
   }
   to {
-	transform: translateX(100vw)
+	transform: translateX(105vw);
   }
 }
+
+@keyframes mdScreen {
+	from {
+	  transform: translateX(-25vw);
+	}
+	to {
+	  transform: translateX(105vw);
+	}
+  }
+
+
+@keyframes lgScreen {
+	from {
+	  transform: translateX(-15vw);
+	}
+	to {
+	  transform: translateX(105vw);
+	}
+  }
 /*
 
 @keyframes img2 {
@@ -124,11 +131,37 @@ justify-content: center;
     animation-iteration-count: infinite;
 } */
 
-.testing {
-	animation: 15s linear 1s infinite running img1;
-	animation-timing-function: cubic-bezier(0.25, 0.50, 0.75, 1.05);
-	/*
-	This property is a shorthand for the following CSS properties:
+@media (max-width: 758px) {
+	
+	.testing {
+		position: relative;
+		top: 50%;
+		animation: 15s linear 1s infinite running smallScreen;
+		animation-timing-function: linear;
+	}
+}
+
+@media (min-width: 759px) {
+	
+	.testing {
+		position: relative;
+		top: 50%;
+		animation: 15s linear 1s infinite running mdScreen;
+		animation-timing-function: linear;
+	}
+}
+
+@media (min-width: 1280px) {
+	
+	.testing {
+		position: relative;
+		top: 50%;
+		animation: 15s linear 1s infinite running lgScreen;
+		animation-timing-function: linear;
+	}
+}
+		/*
+		Animation property is a shorthand for the following CSS properties:
 
 		animation-delay
 		animation-direction
@@ -139,4 +172,3 @@ justify-content: center;
 		animation-play-state
 		animation-timing-function
 	*/
-}
