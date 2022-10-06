@@ -4,7 +4,7 @@ import logo from '../../public/globals.jpeg'
 
 const Walmart = () => {
   return (
-    <div className='flex w-screen testing'>
+    <div className='flex w-screen testing w-24 sm:w-full'>
         <Image 
             className=''
             key={1}

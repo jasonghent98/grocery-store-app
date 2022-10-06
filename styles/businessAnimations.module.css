@@ -62,29 +62,35 @@ justify-content: center;
 
  @keyframes smallScreen {
   from {
-	transform: translateX(-30vw);
+	transform-box: fill-box;
+	transform: translateX(-60vw);
   }
   to {
-	transform: translateX(105vw);
+	transform-box: fill-box;
+	transform: translateX(100vw);
   }
 }
 
 @keyframes mdScreen {
 	from {
-	  transform: translateX(-25vw);
+      transform-box: fill-box;
+	  transform: translateX(-60vw);
 	}
 	to {
-	  transform: translateX(105vw);
+		transform-box: fill-box;
+	  transform: translateX(100vw);
 	}
   }
 
 
 @keyframes lgScreen {
 	from {
-	  transform: translateX(-15vw);
+	transform-box: fill-box;	
+	  transform: translateX(-60vw);
 	}
 	to {
-	  transform: translateX(105vw);
+		transform-box: fill-box;
+	  transform: translateX(100vw);
 	}
   }
 /*
