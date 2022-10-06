@@ -3,12 +3,13 @@ import Navbar from '../components/Navbar'
 import Image from 'next/image'
 import getImages from './api/proxyForImages.ts'
 import { logosHandlerInput } from '../types/getLogosRequest'
-
+import logo from '../public/globals.jpeg'
 
 const About = (props: {logos: any}) => {
   // const [logos, setLogos] = useState<any | undefined>([])
   const {logos} = props
  
+  console.log(logo)
 
   // useEffect(() => {
   //     // will return an array of logo data from all of the urls passed in.. for now just walmart
@@ -66,18 +67,18 @@ const About = (props: {logos: any}) => {
       {/* stores we offer data from  */}
       <div className='flex flex-col gap-y-4 justify-center items-center h-full bg-gray-200 overflow-scroll'>
         <div className='text-5xl'>Data on dozens of grocery stores<br/><span className='flex justify-center text-[#FF6B18]'>right at your fingertips</span></div>
-        <div className='testing123 hover:translate-x-full transition-transform'>
-            <div className='flex w-screen'>
-              {logos.map((logoObject: any, index: number) => (
-                <Image 
-                className='img1'
-                key={index}
+        <div className=''>
+            <div className='flex w-screen testing'>
+              {/* {logos.map((logoObject: any, index: number) => ( */}
+               <Image 
+                className=''
+                key={1}
                 alt='grocery logo'
-                src={logos[1].formats[0].src}
-                width={50}
-                height={50}
-                />
-            ))} 
+                src={logo}
+                width={200}
+                height={200}
+                /> 
+            {/* ))}  */}
 
             </div>
              
@@ -90,15 +91,15 @@ const About = (props: {logos: any}) => {
   )
 }
 
-export async function getStaticProps() {
-  const domain = 'walmart.com'
-  const data = await getImages(domain)
-  console.log(data, 'about.ts')
-  return {
-    props: {
-      logos: data
-    }
-  }
-}
+// export async function getStaticProps() {
+//   // const domain = 'walmart.com'
+//   // // const data = await getImages(domain)
+//   // console.log(data, 'about.ts')
+//   // return {
+//   //   props: {
+//   //     logos: data
+//   //   }
+//   // }
+// }
 
 export default About
