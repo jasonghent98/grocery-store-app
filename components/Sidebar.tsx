@@ -97,7 +97,7 @@ export default function PersistentDrawerLeft() {
             color="inherit"
             aria-label="open drawer"
             size='large'
-            className='h-full mt-6'
+            className='h-full mt-6 hover:bg-transparent transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-110 duration-300'
             onClick={handleDrawerOpen}
             edge="start"
             sx={{ mr: 2, ...(open && { display: 'none' })}}
@@ -131,7 +131,7 @@ export default function PersistentDrawerLeft() {
         <List>
           {['Search Items Nearby'].map((text, index) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton onClick={() => router.push('/')}>
+              <ListItemButton onClick={() => router.push('/')} className='hover:text-[#FF6B18] delay-150'>
                 <ListItemIcon >
                     <SearchIcon />
                 </ListItemIcon>
@@ -144,7 +144,7 @@ export default function PersistentDrawerLeft() {
         <List>
           {['About Us'].map((text, index) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton onClick={() => router.push('/about')}>
+              <ListItemButton onClick={() => router.push('/about')} className='hover:text-[#FF6B18] delay-150'>
                 <ListItemIcon >
                     <InfoIcon />
                 </ListItemIcon>
