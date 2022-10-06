@@ -5,22 +5,7 @@ import getImages from './api/proxyForImages.ts'
 import { logosHandlerInput } from '../types/getLogosRequest'
 import logo from '../public/globals.jpeg'
 
-const About = (props: {logos: any}) => {
-  // const [logos, setLogos] = useState<any | undefined>([])
-  const {logos} = props
- 
-  console.log(logo)
-
-  // useEffect(() => {
-  //     // will return an array of logo data from all of the urls passed in.. for now just walmart
-  //   const fetchLogosHandler = async (domains: string[]) => {
-  //     // const data = await getImages(domains)
-  //     console.log(data, 'api called from useEffect')
-  //     setLogos(data)
-  //   }
-  //   fetchLogosHandler(domains)
-
-  // }, [haveLogosChanged])
+const About = () => {
 
   return (
     <div className='bg-gray-200 h-screen overflow-scroll'>
