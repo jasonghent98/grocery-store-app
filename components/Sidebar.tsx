@@ -88,7 +88,7 @@ export default function PersistentDrawerLeft() {
   };
 
   return (
-    <Box className='relative h-full bg-violet-200 w-screen'sx={{ display: 'flex' }}>
+    <Box className='relative h-full w-screen'sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar className= 'absolute h-full bg-[#00703D] flex justify-center' position="fixed" open={open}>
         <Toolbar className='h-full'>

@@ -5,7 +5,7 @@ interface IProps{
 }
 const SearchBarOverlay = ({children}: IProps) => {
   return (
-    <div className='flex flex-col justify-center items-center bg-[#0F8B8D] h-5/6 w-5/6 rounded-md'>
+    <div className='flex flex-col justify-center items-center bg-[#00703D] h-5/6 w-5/6 rounded-md'>
         {children}
     </div>
   )

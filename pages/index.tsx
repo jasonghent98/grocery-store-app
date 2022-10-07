@@ -9,8 +9,10 @@ import Navbar from '../components/Navbar'
 const Home: NextPage = ({data}: any) => {
   return (
     <div className='flex flex-col justify-center items-center bg-gray-300 h-screen'>
-      <div className='relative bottom-6 h-1/6 shadow'>
-        <Navbar/>
+      <div className='relative bottom-6 h-1/6'>
+        <div className="h-3/5">
+          <Navbar/>
+        </div>
       </div>
       {/* <Head>
         <title>Create Next App</title>
