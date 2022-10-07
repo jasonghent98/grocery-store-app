@@ -90,7 +90,7 @@ export default function PersistentDrawerLeft() {
   return (
     <Box className='relative h-full w-screen'sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar className= 'absolute h-full bg-[#00703D] flex justify-center' position="fixed" open={open}>
+      <AppBar className= 'absolute h-full bg-[#00703D]' position="fixed" open={open}>
         <Toolbar className='h-full'>
                 
           <IconButton
@@ -102,7 +102,7 @@ export default function PersistentDrawerLeft() {
             edge="start"
             sx={{ mr: 2, ...(open && { display: 'none' })}}
             >
-            <MenuIcon className='h-2/5 w-2/5 md:h-1/2 md:w-1/2 lg:h-3/5 lg:w-3/5'/>
+            <MenuIcon className='h-4/5 w-4/5 md:h-4/5 md:w-4/5 lg:h-4/5 lg:w-4/5'/>
           </IconButton>
           <Typography variant="h6" noWrap component="div" className='text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
             {/* if text is needed in the navbar */}

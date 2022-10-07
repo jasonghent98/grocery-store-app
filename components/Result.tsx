@@ -14,7 +14,7 @@ import { Result } from '../types/searchResult'
 const SearchResult = ({photo, itemName, price, location}: Result) => {
   return (
     <div className='h-1/2'>
-        <div className='flex flex-col gap-y-3 bg-gray-400 h-full rounded-lg'>
+        <div className='flex flex-col justify-center gap-y-3 bg-gray-400 h-full rounded-lg'>
             <div className='h-3/4 mx-6'>
                 <div className='flex justify-center items-center mt-6'>
                     image goes here
