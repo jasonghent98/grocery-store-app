@@ -3,6 +3,8 @@ import Navbar from '../components/Navbar'
 import Image from 'next/image'
 import getImages from './api/proxyForImages.ts'
 import Walmart from '../components/logos/Walmart'
+import TraderJoes from '../components/logos/TraderJoes'
+import Aldi from '../components/logos/Aldi'
 
 const About = () => {
 
@@ -54,9 +56,12 @@ const About = () => {
       {/* stores we offer data from  */}
       <div className='flex flex-col gap-y-4 justify-center items-center h-full bg-gray-200 overflow-scroll'>
         <div className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-center'>Data on several grocery stores<br/><span className='flex justify-center text-[#FF6B18] font-semibold my-4'>all in one place.</span></div>
-        <div>
-          <Walmart />             
+        <div className='flex'>
+          <div className='mx-36'><Walmart/></div>
+          <div className='mx-36'><TraderJoes/></div>
+          <div className='mx-36'><Aldi/></div>
         </div>
+        <div></div>
       </div>
 
 

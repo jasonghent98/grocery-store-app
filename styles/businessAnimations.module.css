@@ -142,7 +142,7 @@ justify-content: center;
 	.testing {
 		position: relative;
 		top: 50%;
-		animation: 15s linear 1s infinite running smallScreen;
+		animation: 30s linear 1s infinite running smallScreen;
 		animation-timing-function: linear;
 	}
 }
@@ -152,7 +152,7 @@ justify-content: center;
 	.testing {
 		position: relative;
 		top: 50%;
-		animation: 15s linear 1s infinite running mdScreen;
+		animation: 30s linear 1s infinite running mdScreen;
 		animation-timing-function: linear;
 	}
 }
@@ -162,7 +162,7 @@ justify-content: center;
 	.testing {
 		position: relative;
 		top: 50%;
-		animation: 15s linear 1s infinite running lgScreen;
+		animation: 30s linear 1s infinite running lgScreen;
 		animation-timing-function: linear;
 	}
 }
