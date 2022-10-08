@@ -35,8 +35,8 @@ const About = () => {
       <div className="flex flex-col gap-x-8 justify-around items-center h-5/6 bg-gray-300 w-full">
         {/* container for just the text */}
         <div className="flex flex-col justify-center mx-8 my-8 gap-y-4 text-black font-semibold sm:text-3xl lg:text-5xl text-center">
-          <h1 className='text-black md:text-5xl sm:text-4xl text-2xl font-bold mb-4 mt-48'>Our Mission To You:</h1>
-          <p className='text-[#FF6B18] text-md sm:text-2xl h-4/6'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta, nemo sit. Necessitatibus similique odit provident. Sunt neque recusandae consequatur officiis, facere natus laudantium praesentium reprehenderit molestiae veniam laboriosam dignissimos. Vel!
+          <h1 className='text-black text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 mt-48'>Our Mission To You:</h1>
+          <p className='text-[#FF6B18] text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl h-4/6'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta, nemo sit. Necessitatibus similique odit provident. Sunt neque recusandae consequatur officiis, facere natus laudantium praesentium reprehenderit molestiae veniam laboriosam dignissimos. Vel!
         Tempora facilis, deleniti autem vitae assumenda inventore mollitia pariatur! Autem quia excepturi maiores, voluptatibus distinctio dignissimos et cupiditate repellat? Soluta eveniet mollitia recusandae temporibus perferendis ad quod voluptate inventore nesciunt.
         Quam vero quos atque reprehenderit id
           </p>
