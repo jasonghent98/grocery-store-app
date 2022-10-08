@@ -14,7 +14,7 @@ const SearchForProducts = () => {
                 <p className='xl:text-6xl lg:text-5xl md:text-4xl text-2xl text-center '>What are you searching for?</p>
               </div>
               
-              <SearchBar setItem={setItem} />
+              <SearchBar setItem={setItem} styles={'rounded w-full h-2/5 text-black bg-gray-200 relative placeholder:italic pl-3 placeholder:xl:text-2xl'} />
 
               <div className='h-1/3'>
                 <SearchProductsButton item={item} />
