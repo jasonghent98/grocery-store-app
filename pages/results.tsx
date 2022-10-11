@@ -17,7 +17,7 @@ const Results = () => {
         </div>
 
         <div className='flex gap-x-10 h-1/6 w-3/5'>
-            <SearchBar setItem={setItem} styles={'rounded-lg w-full h-full text-black bg-gray-200 relative placeholder:italic pl-3 placeholder:sm:text-lg placeholder:md:text-xl placeholder:lg:text-2xl placeholder:xl:text-3xl'}/>
+            <SearchBar setItem={setItem} styles={'rounded-lg w-full h-full text-black bg-gray-200 relative placeholder:italic pl-3 placeholder:sm:text-xl placeholder:md:text-2xl placeholder:lg:text-3xl placeholder:xl:text-4xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl'}/>
             <SearchProductsButton item={item} />
         </div>
 
@@ -25,9 +25,10 @@ const Results = () => {
             <h2 className='text-xl text-black sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl'>Search Results for userinput</h2>
         </div>
         
-        <div className='flex flex-col lg:flex-row flex-wrap gap-x-3 gap-y-3 h-5/6 w-3/4 '>
+        <div className='h-5/6 w-3/4 bg-blue-300 overflow-scroll'>
             {/* will contain the list of products returned to the user */}
-            <div className='h-full w-full'>
+            <div className='h-screen w-full flex flex-col lg:flex-row justify-around flex-wrap gap-x-3 gap-y-3'>
+                {/* map over all results returned here */}
                 <Result itemName='Broccolli' price='$1.99 per pound' location='538 Newell Drive, Tampa, Florida, 33269'/>
             </div>
         </div>
