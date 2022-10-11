@@ -6,7 +6,8 @@ import SearchProductsButton from '../components/buttons/SearchProductsButton'
 
 // data from the user query should be accessible to this component 
 // will need to loop over the results generated and populate the properties within the Result component
-const Results = () => {
+const Results = ({data}: any) => {
+    console.log(data)
     const [item, setItem] = useState<string>()
   return (
     <div className='flex flex-col items-center h-screen w-screen bg-gray-300'>
@@ -34,6 +35,29 @@ const Results = () => {
         </div>
     </div>
   )
+}
+
+/**
+ * 
+ * @returns a list of results based on the user query
+ * the results will be returned and rendered within the component
+ * 
+ * these results can be stored in a public cache bc there is no authorization component to the req
+ */
+export async function getServerSideProps({req, res}) {
+    // mock api call test
+    res.setHeader(
+        'Cache-Control',
+        'test123'
+    )
+    const response = await fetch('https://jsonplaceholder.typicode.com/todos/1')
+    const data = await response.json()
+    console.log(response.headers)
+    return {
+        props: {
+            data
+        }
+    }
 }
 
 export default Results
