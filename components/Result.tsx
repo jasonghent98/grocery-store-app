@@ -13,17 +13,17 @@ import { Result } from '../types/searchResult'
 
 const SearchResult = ({photo, itemName, price, location}: Result) => {
   return (
-    <div className='h-1/2'>
-        <div className='flex flex-col justify-center gap-y-3 bg-gray-400 h-full rounded-lg'>
+    <div className='basis-0'>
+        <div className='flex flex-col justify-center gap-y-3 bg-gray-400 h-full basis-0 rounded-lg'>
             <div className='h-3/4 mx-6'>
                 <div className='flex justify-center items-center mt-6'>
                     image goes here
                 </div>
             </div>
             <div className='flex flex-col gap-y-3 my-6'>
-              <div className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mx-6'>{itemName}</div>
-              <div className='text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl mx-6'>{location}</div>
-              <div className='text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl mx-6'>{price}</div>
+              <div className='text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl mx-6'>{itemName}</div>
+              <div className='text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl mx-6'>{location}</div>
+              <div className='text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl mx-6'>{price}</div>
             </div>
         </div>
     </div>

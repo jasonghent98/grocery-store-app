@@ -4,13 +4,16 @@ import Result from '../components/Result'
 import SearchBar from '../components/SearchBar'
 import SearchProductsButton from '../components/buttons/SearchProductsButton'
 import axios from 'axios'
+import cacheData from 'memory-cache'
+import { ListItem } from '@mui/material'
 
 // data from the user query should be accessible to this component 
 // will need to loop over the results generated and populate the properties within the Result component
 const Results = ({data}: any) => {
+    console.log(data.organic_results)
     const [item, setItem] = useState<string>()
   return (
-    <div className='flex flex-col items-center h-screen w-screen bg-gray-300'>
+    <div className='flex flex-col items-center h-screen bg-gray-300'>
         <div className='h-1/6'>
             <div className='h-3/5'>
                 <Navbar/>
@@ -26,12 +29,17 @@ const Results = ({data}: any) => {
             <h2 className='text-xl text-black sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl'>Search Results for userinput</h2>
         </div>
         
-        <div className='h-3/6 w-3/4 bg-blue-300 overflow-scroll'>
+        <div className='h-3/6 w-4/5 bg-blue-300 flex flex-col lg:flex-row lg:flex-wrap lg:justify-around gap-y-3 gap-x-3 overflow-auto'>
             {/* will contain the list of products returned to the user */}
-            <div className='h-screen w-full flex flex-col lg:flex-row justify-around flex-wrap gap-x-3 gap-y-3'>
+            {/* <div className='h-full w-full flex flex-row justify-around flex-wrap gap-x-3 gap-y-3'> */}
                 {/* map over all results returned here */}
-                <Result itemName='Broccolli' price='$1.99 per pound' location='538 Newell Drive, Tampa, Florida, 33269'/>
-            </div>
+                {/* <div className='h-1/2 w-1/2'> */}
+
+                {data.organic_results.map((result: any) => (
+                    <Result itemName={result.title} price='$1.99 per pound' location={result.url} key={result.position}/>
+                    ))}
+                {/* </div> */}
+            {/* </div> */}
         </div>
     </div>
   )
@@ -50,13 +58,23 @@ export async function getServerSideProps({req, res}) {
         'Cache-Control',
         'test123'
     )
-    const response = await fetch('https://jsonplaceholder.typicode.com/todos/1')
-    const data = await response.json()
-    response.headers.set('Cache-Control', 'public')
+    let response: any;
+    if (cacheData.get('pizzanewyork')) {
+        console.log('cache hit!')
+        response = cacheData.get('pizzanewyork')
+    } else {
+         // const response = await axios.get('https://app.scrapingbee.com/api/v1/store/google', { params: {
+    //     'api_key': process.env.NEXT_PUBLIC_GOOGLE_SCRAPER_KEY,
+    //     'search': 'pizza new york',
+    // }});
+    // cacheData.put('pizzanewyork', response, (86400 * 1000))
+    // console.log('cache miss')
+    // console.log(response)
+    }
 
     return {
         props: {
-            data
+            data: response?.data
         }
     }
 }
