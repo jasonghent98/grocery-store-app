@@ -3,11 +3,11 @@ import Navbar from '../components/Navbar'
 import Result from '../components/Result'
 import SearchBar from '../components/SearchBar'
 import SearchProductsButton from '../components/buttons/SearchProductsButton'
+import axios from 'axios'
 
 // data from the user query should be accessible to this component 
 // will need to loop over the results generated and populate the properties within the Result component
 const Results = ({data}: any) => {
-    console.log(data)
     const [item, setItem] = useState<string>()
   return (
     <div className='flex flex-col items-center h-screen w-screen bg-gray-300'>
@@ -26,7 +26,7 @@ const Results = ({data}: any) => {
             <h2 className='text-xl text-black sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl'>Search Results for userinput</h2>
         </div>
         
-        <div className='h-5/6 w-3/4 bg-blue-300 overflow-scroll'>
+        <div className='h-3/6 w-3/4 bg-blue-300 overflow-scroll'>
             {/* will contain the list of products returned to the user */}
             <div className='h-screen w-full flex flex-col lg:flex-row justify-around flex-wrap gap-x-3 gap-y-3'>
                 {/* map over all results returned here */}
@@ -52,7 +52,8 @@ export async function getServerSideProps({req, res}) {
     )
     const response = await fetch('https://jsonplaceholder.typicode.com/todos/1')
     const data = await response.json()
-    console.log(response.headers)
+    response.headers.set('Cache-Control', 'public')
+
     return {
         props: {
             data
