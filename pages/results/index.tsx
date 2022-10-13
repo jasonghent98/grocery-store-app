@@ -66,11 +66,11 @@ export async function getServerSideProps({req, res}) {
          // const response = await axios.get('https://app.scrapingbee.com/api/v1/store/google', { params: {
     //     'api_key': process.env.NEXT_PUBLIC_GOOGLE_SCRAPER_KEY,
     //     'search': 'pizza new york',
+    //     'near': 
     // }});
     // cacheData.put('pizzanewyork', response, (86400 * 1000))
     // console.log('cache miss')
     // console.log(response)
-    }
 
     return {
         props: {
