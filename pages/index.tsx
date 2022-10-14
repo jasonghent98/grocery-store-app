@@ -5,36 +5,40 @@ import styles from '../styles/Home.module.css'
 import axios from 'axios'
 import SearchForProducts from '../components/SearchForProducts'
 import Navbar from '../components/Navbar'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo} from 'react'
 
 const Home: NextPage = ({data}: any) => {
-  const [userLocation, setUserLocation] = useState({latitude: null, longitude: null})
+  const [userLocation, setUserLocation] = useState({latitude: null, longitude: null, city: null})
+
+  const memoObj = useMemo(() => { return {...userLocation}}, [userLocation.city])
 
   // grab the user location when user routes to the home page and store as globally available state
+  // only run useEffect when the city has changed within the memo object
   useEffect(() => {
-    // run the coorindates into function that returns user city
-        // const reverseGeoResponse = axios.get(`https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=${process.env.NEXT_PUBLIC_REVERSE_GEOCODE_KEY}`)
-        // console.log(reverseGeoResponse)
-
         const getUserCoordinates = () => {
           if (navigator.geolocation) {
-            return navigator.geolocation.getCurrentPosition(showPosition);
+            navigator.geolocation.getCurrentPosition(showPosition);
           } else { 
             throw new Error("Geolocation is not supported by this browser.");
           }
-        }
+        }      
         
-        const showPosition = (position: any) => {
+        const showPosition = async (position: any) => {
           const {coords} = position;
           const {latitude, longitude} = coords;
+          // run the coorindates into function that  returns user city
+          const reverseGeoResponse = await axios.get(`https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=${process.env.NEXT_PUBLIC_REVERSE_GEOCODE_KEY}`)
           setUserLocation({
             latitude,
-            longitude
+            longitude,
+            city: reverseGeoResponse.data.features[0].properties.city
           })
         }
         getUserCoordinates()
-  }, [])
+        console.log(memoObj, 'from useEffect')
 
+  }, [memoObj])
+  
   return (
     <div className='flex flex-col justify-center items-center bg-gray-300 h-screen'>
       <div className='relative bottom-6 h-1/6'>
