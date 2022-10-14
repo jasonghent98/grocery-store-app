@@ -1,7 +1,11 @@
 import {SET_USER_LOCATION} from '../actionTypes' 
 
-export const setUserLocation = (userLocation: any) => ({
+export const setUserLocation = ({latitude, longitude, city}: {latitude: string, longitude: string, city: string}) => ({
     type: SET_USER_LOCATION,
     // object containing the latitude, longitude, and city of the user
-    userLocation
+    userLocation: {
+        latitude,
+        longitude,
+        city
+    }
 })

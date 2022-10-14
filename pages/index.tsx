@@ -5,16 +5,19 @@ import styles from '../styles/Home.module.css'
 import axios from 'axios'
 import SearchForProducts from '../components/SearchForProducts'
 import Navbar from '../components/Navbar'
+import {useSelector, useDispatch} from 'react-redux'
 import { useEffect, useState, useMemo} from 'react'
+import type { RootState } from '../redux/store'
+import { setUserLocation } from '../redux/actions/userActions'
+import useDeepEffect from '../utility/useDeepEffect'
 
 const Home: NextPage = ({data}: any) => {
-  const [userLocation, setUserLocation] = useState({latitude: null, longitude: null, city: null})
-
-  const memoObj = useMemo(() => { return {...userLocation}}, [userLocation.city])
-
+  const dispatch = useDispatch();
+  const userLocation = useSelector((state: RootState) => state.userManagementState.userLocation)
+  
   // grab the user location when user routes to the home page and store as globally available state
   // only run useEffect when the city has changed within the memo object
-  useEffect(() => {
+  useDeepEffect(() => {
         const getUserCoordinates = () => {
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
@@ -28,22 +31,22 @@ const Home: NextPage = ({data}: any) => {
           const {latitude, longitude} = coords;
           // run the coorindates into function that  returns user city
           const reverseGeoResponse = await axios.get(`https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=${process.env.NEXT_PUBLIC_REVERSE_GEOCODE_KEY}`)
-          setUserLocation({
+          dispatch(setUserLocation({
             latitude,
             longitude,
             city: reverseGeoResponse.data.features[0].properties.city
-          })
-        }
+          }))
+        }  
         getUserCoordinates()
-        console.log(memoObj, 'from useEffect')
+        console.log('running useEffect')
 
-  }, [memoObj])
+  }, [userLocation])
   
   return (
     <div className='flex flex-col justify-center items-center bg-gray-300 h-screen'>
       <div className='relative bottom-6 h-1/6'>
         <div className="h-3/5">
-          <Navbar/>
+          <Navbar/> 
         </div>
       </div>
       {/* <Head>
