@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "babel.config.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "babel.config.js", "utility/userLocation.ts"],
   "exclude": ["node_modules"]
 }

@@ -6,11 +6,11 @@ import SearchProductsButton from '../../components/buttons/SearchProductsButton'
 import axios from 'axios'
 import cacheData from 'memory-cache'
 import { ListItem } from '@mui/material'
+import getUserCoordinates from '../../utility/userLocation'
 
 // data from the user query should be accessible to this component 
 // will need to loop over the results generated and populate the properties within the Result component
 const Results = ({data}: any) => {
-    console.log(data.organic_results)
     const [item, setItem] = useState<string>()
   return (
     <div className='flex flex-col items-center h-screen bg-gray-300'>
@@ -35,9 +35,10 @@ const Results = ({data}: any) => {
                 {/* map over all results returned here */}
                 {/* <div className='h-1/2 w-1/2'> */}
 
-                {data.organic_results.map((result: any) => (
+                {/* {data.organic_results.map((result: any) => (
                     <Result itemName={result.title} price='$1.99 per pound' location={result.url} key={result.position}/>
-                    ))}
+                    ))} */}
+
                 {/* </div> */}
             {/* </div> */}
         </div>
@@ -58,6 +59,13 @@ export async function getServerSideProps({req, res}) {
         'Cache-Control',
         'test123'
     )
+
+//     fetch("https://api.geoapify.com/v1/geocode/reverse?lat=51.21709661403662&lon=6.7782883744862374&apiKey=408df8f3c66246a487b1ae7de3b27f2b", requestOptions)
+//   .then(response => response.json())
+//   .then(result => console.log(result))
+//   .catch(error => console.log('error', error));
+
+    // add the user city as a query param to the api call
     let response: any;
     if (cacheData.get('pizzanewyork')) {
         console.log('cache hit!')
@@ -71,10 +79,11 @@ export async function getServerSideProps({req, res}) {
     // cacheData.put('pizzanewyork', response, (86400 * 1000))
     // console.log('cache miss')
     // console.log(response)
+    }
 
     return {
         props: {
-            data: response?.data
+            data: null
         }
     }
 }

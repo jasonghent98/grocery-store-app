@@ -5,8 +5,36 @@ import styles from '../styles/Home.module.css'
 import axios from 'axios'
 import SearchForProducts from '../components/SearchForProducts'
 import Navbar from '../components/Navbar'
+import { useEffect, useState } from 'react'
 
 const Home: NextPage = ({data}: any) => {
+  const [userLocation, setUserLocation] = useState({latitude: null, longitude: null})
+
+  // grab the user location when user routes to the home page and store as globally available state
+  useEffect(() => {
+    // run the coorindates into function that returns user city
+        // const reverseGeoResponse = axios.get(`https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=${process.env.NEXT_PUBLIC_REVERSE_GEOCODE_KEY}`)
+        // console.log(reverseGeoResponse)
+
+        const getUserCoordinates = () => {
+          if (navigator.geolocation) {
+            return navigator.geolocation.getCurrentPosition(showPosition);
+          } else { 
+            throw new Error("Geolocation is not supported by this browser.");
+          }
+        }
+        
+        const showPosition = (position: any) => {
+          const {coords} = position;
+          const {latitude, longitude} = coords;
+          setUserLocation({
+            latitude,
+            longitude
+          })
+        }
+        getUserCoordinates()
+  }, [])
+
   return (
     <div className='flex flex-col justify-center items-center bg-gray-300 h-screen'>
       <div className='relative bottom-6 h-1/6'>
