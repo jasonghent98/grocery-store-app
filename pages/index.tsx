@@ -14,7 +14,7 @@ import useDeepEffect from '../utility/useDeepEffect'
 const Home: NextPage = ({data}: any) => {
   const dispatch = useDispatch();
   const userLocation = useSelector((state: RootState) => state.userManagementState.userLocation)
-  
+
   // grab the user location when user routes to the home page and store as globally available state
   // only run useEffect when the city has changed within the memo object
   useDeepEffect(() => {
@@ -37,7 +37,7 @@ const Home: NextPage = ({data}: any) => {
             city: reverseGeoResponse.data.features[0].properties.city
           }))
         }  
-        getUserCoordinates()
+        getUserCoordinates() 
         console.log('running useEffect')
 
   }, [userLocation])

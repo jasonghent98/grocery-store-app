@@ -4,7 +4,6 @@ import getProductByName from "../../pages/api/getProducts";
 import mockAxios from 'axios'
 
 // jest.mock('../../pages/api/getProducts')
-console.log(userInputHandler)
 
 
 // test that the api function returns the 200 status with the proper json 
@@ -27,7 +26,6 @@ describe('get products route', () => {
     // will not actually call the third-party API because GET 
     it('should return a 405 if method is not POST', async () => {
         const response = await getProductByName(req, res) // will trigger the 3rd party api with a GET
-        console.log(response)
         expect(res.status).toBeCalledWith(405)
     })
 

@@ -18,7 +18,7 @@ describe('Search Products Button', () => {
 
     it('should render text correctly', () => {
         const {getByTestId} = render(searchProductsButtonJSX)
-        expect(getByTestId("searchProductsButton").textContent).toBe('Search Item Nearby')
+        expect(getByTestId("searchProductsButton").textContent).toBe('Search')
     })
     
     // test for if the search products button receives props
