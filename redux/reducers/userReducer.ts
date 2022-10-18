@@ -1,4 +1,4 @@
-import { SET_USER_LOCATION } from "../actionTypes";
+import { SET_USER_LOCATION, SET_USER_INPUT } from "../actionTypes";
 
 const userManagementState = (state: any = {}, action: any = {}) => {
     switch(action.type) {
@@ -6,6 +6,11 @@ const userManagementState = (state: any = {}, action: any = {}) => {
             return {
                 ...state,
                 userLocation: action.userLocation
+            }
+        case SET_USER_INPUT:
+            return {
+                ...state,
+                userQuery: action.query
             }
         default:
             return {...state}

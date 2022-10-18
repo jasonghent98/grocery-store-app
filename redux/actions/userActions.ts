@@ -1,5 +1,5 @@
-import {SET_USER_LOCATION} from '../actionTypes' 
-import { UserLocation } from '../../types/actionTypes/userActionTypes'
+import {SET_USER_LOCATION, SET_USER_INPUT} from '../actionTypes' 
+import { UserLocation } from '../../types/reduxActions.ts/userActionTypes'
 
 export const setUserLocation = ({latitude, longitude, city}: UserLocation) => ({
     type: SET_USER_LOCATION,
@@ -9,4 +9,9 @@ export const setUserLocation = ({latitude, longitude, city}: UserLocation) => ({
         longitude,
         city
     }
+})
+
+export const setUserInput = (query: string) => ({
+    type: SET_USER_INPUT,
+    query
 })

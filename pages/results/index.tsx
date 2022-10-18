@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import {useSelector} from 'react-redux'
 import Navbar from '../../components/Navbar'
 import Result from '../../components/Result'
 import SearchBar from '../../components/SearchBar'
@@ -6,11 +7,14 @@ import SearchProductsButton from '../../components/buttons/SearchProductsButton'
 import axios from 'axios'
 import cacheData from 'memory-cache'
 import { ListItem } from '@mui/material'
+import { RootState } from '../../redux/store'
 
 // data from the user query should be accessible to this component 
 // will need to loop over the results generated and populate the properties within the Result component
 const Results = ({data}: any) => {
     const [item, setItem] = useState<string>()
+    const userInput = useSelector((state: RootState) => state.userManagementState.userQuery)
+
   return (
     <div className='flex flex-col items-center h-screen bg-gray-300'>
         <div className='h-1/6'>
@@ -20,8 +24,8 @@ const Results = ({data}: any) => {
         </div>
 
         <div className='flex gap-x-10 h-1/6 w-3/5'>
-            <SearchBar setItem={setItem} styles={'rounded-lg w-full h-full text-black bg-gray-200 relative placeholder:italic pl-3 placeholder:sm:text-xl placeholder:md:text-2xl placeholder:lg:text-3xl placeholder:xl:text-4xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl'}/>
-            <SearchProductsButton item={item} />
+            <SearchBar styles={'rounded-lg w-full h-full text-black bg-gray-200 relative placeholder:italic pl-3 placeholder:sm:text-xl placeholder:md:text-2xl placeholder:lg:text-3xl placeholder:xl:text-4xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl'}/>
+            <SearchProductsButton />
         </div>
 
         <div className='h-1/6 w-full flex justify-center xl:justify-start xl:ml-36'>
@@ -58,11 +62,6 @@ export async function getServerSideProps({req, res}) {
         'Cache-Control',
         'test123'
     )
-
-//     fetch("https://api.geoapify.com/v1/geocode/reverse?lat=51.21709661403662&lon=6.7782883744862374&apiKey=408df8f3c66246a487b1ae7de3b27f2b", requestOptions)
-//   .then(response => response.json())
-//   .then(result => console.log(result))
-//   .catch(error => console.log('error', error));
 
     // add the user city as a query param to the api call
     let response: any;

@@ -1,7 +1,10 @@
 import React, {useState} from 'react'
+import {useDispatch} from 'react-redux'
+import { setUserInput } from '../redux/actions/userActions'
 import { SearchBarProps } from '../types/props/SearchBarProps'
 
-const SearchBar = ({setItem, styles}: SearchBarProps) => {
+const SearchBar = ({styles}: SearchBarProps) => {
+  const dispatch = useDispatch();
     // const [item, setItem] = useState<string>()
 
   return (
@@ -11,7 +14,7 @@ const SearchBar = ({setItem, styles}: SearchBarProps) => {
                  type="text" 
                  className={styles} 
                  placeholder='Enter Item'
-                 onChange={(e) => setItem(e.target.value)}
+                 onChange={(e) => dispatch(setUserInput(e.target.value))}
                 />
         </div>
 
