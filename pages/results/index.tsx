@@ -6,7 +6,6 @@ import SearchProductsButton from '../../components/buttons/SearchProductsButton'
 import axios from 'axios'
 import cacheData from 'memory-cache'
 import { ListItem } from '@mui/material'
-import getUserCoordinates from '../../utility/userLocation'
 
 // data from the user query should be accessible to this component 
 // will need to loop over the results generated and populate the properties within the Result component
