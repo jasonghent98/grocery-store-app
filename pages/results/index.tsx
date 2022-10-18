@@ -1,4 +1,3 @@
-import React, {useState} from 'react'
 import {useSelector} from 'react-redux'
 import Navbar from '../../components/Navbar'
 import Result from '../../components/Result'
@@ -12,8 +11,9 @@ import { RootState } from '../../redux/store'
 // data from the user query should be accessible to this component 
 // will need to loop over the results generated and populate the properties within the Result component
 const Results = ({data}: any) => {
-    const [item, setItem] = useState<string>()
+
     const userInput = useSelector((state: RootState) => state.userManagementState.userQuery)
+    const userLocation = useSelector((state: RootState) => state.userManagementState.userLocation)
 
   return (
     <div className='flex flex-col items-center h-screen bg-gray-300'>
@@ -56,7 +56,10 @@ const Results = ({data}: any) => {
  * 
  * these results can be stored in a public cache bc there is no authorization component to the req
  */
-export async function getServerSideProps({req, res}) {
+export async function getServerSideProps(context:any) {
+    const {query, req, res} = context
+    const {queryString: q, userLocation} = query;
+
     // mock api call test
     res.setHeader(
         'Cache-Control',
@@ -65,19 +68,19 @@ export async function getServerSideProps({req, res}) {
 
     // add the user city as a query param to the api call
     let response: any;
-    if (cacheData.get('pizzanewyork')) {
+    if (cacheData.get(q)) {
         console.log('cache hit!')
-        response = cacheData.get('pizzanewyork')
+        response = cacheData.get(q)
     } else {
-         // const response = await axios.get('https://app.scrapingbee.com/api/v1/store/google', { params: {
-    //     'api_key': process.env.NEXT_PUBLIC_GOOGLE_SCRAPER_KEY,
-    //     'search': 'pizza new york',
-    //     'near': 
-    // }});
-    // cacheData.put('pizzanewyork', response, (86400 * 1000))
-    // console.log('cache miss')
-    // console.log(response)
+         response = await axios.get('https://app.scrapingbee.com/api/v1/store/google', { params: {
+        'api_key': process.env.NEXT_PUBLIC_GOOGLE_SCRAPER_KEY,
+        'search': q,
+        extra_params: userLocation
+        }});
+        cacheData.put(q, response, (86400 * 1000))
+        console.log('cache miss')
     }
+    console.log(response)
 
     return {
         props: {
