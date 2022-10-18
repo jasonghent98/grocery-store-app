@@ -12,9 +12,7 @@ import { RootState } from '../../redux/store'
 // will need to loop over the results generated and populate the properties within the Result component
 const Results = ({data}: any) => {
 
-    const userInput = useSelector((state: RootState) => state.userManagementState.userQuery)
-    const userLocation = useSelector((state: RootState) => state.userManagementState.userLocation)
-
+    console.log(data)
   return (
     <div className='flex flex-col items-center h-screen bg-gray-300'>
         <div className='h-1/6'>
@@ -38,9 +36,9 @@ const Results = ({data}: any) => {
                 {/* map over all results returned here */}
                 {/* <div className='h-1/2 w-1/2'> */}
 
-                {/* {data.organic_results.map((result: any) => (
+                {data.organic_results.map((result: any) => (
                     <Result itemName={result.title} price='$1.99 per pound' location={result.url} key={result.position}/>
-                    ))} */}
+                    ))}
 
                 {/* </div> */}
             {/* </div> */}
@@ -80,11 +78,11 @@ export async function getServerSideProps(context:any) {
         cacheData.put(q, response, (86400 * 1000))
         console.log('cache miss')
     }
-    console.log(response)
+    console.log(response.data)
 
     return {
         props: {
-            data: null
+            data: response.data
         }
     }
 }
