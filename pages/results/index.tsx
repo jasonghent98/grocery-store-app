@@ -12,7 +12,6 @@ import { RootState } from '../../redux/store'
 // will need to loop over the results generated and populate the properties within the Result component
 const Results = ({data}: any) => {
     const userQuery = useSelector((state: RootState) => state.userManagementState.userQuery)
-    console.log(userQuery)
   return (
     <div className='flex flex-col items-center h-screen bg-gray-300'>
         <div className='h-1/6'>
@@ -30,13 +29,10 @@ const Results = ({data}: any) => {
             <h2 className='h-1/6 text-xl text-black sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl'>Results for <span className='italic'>{userQuery}</span></h2>
         </div>
 
+        <div className='h-4/6 overflow-auto w-4/5 flex'>
 
-        <div className='h-4/6 w-4/5 bg-blue-300 flex flex-col gap-y-3 gap-x-3'>
-            {/* will contain the list of products returned to the user */}
-            {/* <div className='h-full w-full flex flex-row justify-around flex-wrap gap-x-3 gap-y-3'> */}
+            <div className='bg-blue-300 h-full w-full gap-y-3 gap-x-3'>
                 {/* map over all results returned here */}
-                {/* <div className='relative h-1/2 w-1/2'> */}
-
                 {data.local_results.map((result: any) => (
                     <Result 
                     photo={result.thumbnail}
@@ -44,10 +40,9 @@ const Results = ({data}: any) => {
                     price='$1.99 per pound' 
                     location={result.url} 
                     key={result.position}/>
-                    ))}
+                ))}
 
-                {/* </div> */}
-            {/* </div> */}
+            </div>
         </div>
     </div>
   )
