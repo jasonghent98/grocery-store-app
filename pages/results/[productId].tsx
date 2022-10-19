@@ -8,7 +8,9 @@ const Product = () => {
     const router = useRouter()
     const {productId} = router.query
   return (
-    <div>{productId}</div>
+    <div className='h-screen bg-gray-300'>
+      {productId}
+    </div>
   )
 }
 

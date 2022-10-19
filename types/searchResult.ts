@@ -1,7 +1,7 @@
 export interface Result {
     photo?: string,
     itemName: string,
-    price: string,
+    address: string,
     location: string
     resultId: string
 }

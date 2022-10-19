@@ -31,13 +31,13 @@ const Results = ({data}: any) => {
 
         <div className='h-4/6 overflow-auto w-4/5 flex'>
 
-            <div className='h-full w-full flex flex-col gap-y-5 gap-x-3'>
+            <div className='h-full w-full flex flex-col md:grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-y-5 gap-x-3'>
                 {/* map over all results returned here */}
                 {data.local_results.map((result: any) => (
                 <Result 
                     photo={result.thumbnail}
                     itemName={result.title} 
-                    price={result.address} 
+                    address={result.address} 
                     location={result.url} 
                     key={result.position}
                     resultId={result.position}
