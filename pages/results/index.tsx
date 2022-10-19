@@ -36,9 +36,9 @@ const Results = ({data}: any) => {
                 {/* map over all results returned here */}
                 {/* <div className='h-1/2 w-1/2'> */}
 
-                {data.organic_results.map((result: any) => (
+                {/* {data.organic_results.map((result: any) => (
                     <Result itemName={result.title} price='$1.99 per pound' location={result.url} key={result.position}/>
-                    ))}
+                    ))} */}
 
                 {/* </div> */}
             {/* </div> */}
@@ -56,7 +56,16 @@ const Results = ({data}: any) => {
  */
 export async function getServerSideProps(context:any) {
     const {query, req, res} = context
-    const {queryString: q, userLocation} = query;
+    let {queryString, userCity, userState, userCountry} = query;
+
+    // handle multi-word locations
+    userCity = userCity.split(' ')
+    userCity = userCity.join('+')
+    userState = userState.split(' ')
+    userState = userState.join('+')
+    userCountry = userCountry.split(' ')
+    userCountry = userCountry.join('+')
+
 
     // mock api call test
     res.setHeader(
@@ -66,19 +75,23 @@ export async function getServerSideProps(context:any) {
 
     // add the user city as a query param to the api call
     let response: any;
-    if (cacheData.get(q)) {
+    if (cacheData.get(queryString)) {
         console.log('cache hit!')
-        response = cacheData.get(q)
+        response = cacheData.get(queryString)
     } else {
-         response = await axios.get('https://app.scrapingbee.com/api/v1/store/google', { params: {
-        'api_key': process.env.NEXT_PUBLIC_GOOGLE_SCRAPER_KEY,
-        'search': q,
-        extra_params: userLocation
-        }});
-        cacheData.put(q, response, (86400 * 1000))
+        //  response = await axios.get('https://app.scrapingbee.com/api/v1/store/google', { params: {
+        // 'api_key': process.env.NEXT_PUBLIC_GOOGLE_SCRAPER_KEY,
+        // 'search': q,
+        // 'near': userLocation
+        // }});
+        response = await axios.get(`https://serpapi.com/search.json?q=${queryString}&location=${userCity},+${userState},+${userCountry}&tbm=lcl`, { params: {
+            'api_key': process.env.NEXT_PUBLIC_SERPAPI_KEY
+            }
+        })
+        cacheData.put(queryString, response, (86400 * 1000))
         console.log('cache miss')
     }
-    console.log(response.data)
+    console.log(response)
 
     return {
         props: {

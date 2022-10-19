@@ -25,7 +25,9 @@ const SearchProductsButton = () => {
         pathname: '/results',
         query: {
           queryString: query,
-          userLocation: userLocation.city.toLowerCase()
+          userCity: userLocation.city,
+          userState: userLocation.state,
+          userCountry: userLocation.country
         }
       })
     }
