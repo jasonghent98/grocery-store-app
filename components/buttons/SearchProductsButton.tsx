@@ -19,7 +19,7 @@ const SearchProductsButton = () => {
       // const listOfItems: any = await userInputHandler('http://localhost:3000/api/getProducts', data)
     
       const query = userInput.join('+')
-      console.log(userLocation.city.toLowerCase())
+      console.log(userLocation)
 
       router.push({
         pathname: '/results',
