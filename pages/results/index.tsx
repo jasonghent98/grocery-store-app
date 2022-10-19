@@ -13,7 +13,7 @@ import { RootState } from '../../redux/store'
 const Results = ({data}: any) => {
     const userQuery = useSelector((state: RootState) => state.userManagementState.userQuery)
   return (
-    <div className='flex flex-col items-center h-screen bg-gray-300'>
+    <div className='flex flex-col items-center h-screen relative bg-gray-300'>
         <div className='h-1/6'>
             <div className='h-3/5'>
                 <Navbar/>
@@ -26,7 +26,7 @@ const Results = ({data}: any) => {
         </div>
 
         <div className='h-1/12 relative bottom-14 w-full flex justify-center xl:justify-start xl:ml-36'>
-            <h2 className='h-1/6 text-xl text-black sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl'>Results for <span className='italic'>{userQuery}</span></h2>
+            <h2 className='h-1/6 text-xl text-black sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl'>Results for<span className='italic'>{userQuery}</span></h2>
         </div>
 
         <div className='h-4/6 overflow-auto w-4/5 flex'>
