@@ -3,4 +3,5 @@ export interface Result {
     itemName: string,
     price: string,
     location: string
+    resultId: string
 }

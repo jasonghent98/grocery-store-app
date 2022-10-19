@@ -31,15 +31,17 @@ const Results = ({data}: any) => {
 
         <div className='h-4/6 overflow-auto w-4/5 flex'>
 
-            <div className='bg-blue-300 h-full w-full gap-y-3 gap-x-3'>
+            <div className='h-full w-full flex flex-col gap-y-5 gap-x-3'>
                 {/* map over all results returned here */}
                 {data.local_results.map((result: any) => (
-                    <Result 
+                <Result 
                     photo={result.thumbnail}
                     itemName={result.title} 
-                    price='$1.99 per pound' 
+                    price={result.address} 
                     location={result.url} 
-                    key={result.position}/>
+                    key={result.position}
+                    resultId={result.position}
+                />
                 ))}
 
             </div>
@@ -92,7 +94,7 @@ export async function getServerSideProps(context:any) {
         cacheData.put(queryString, response, (86400 * 1000))
         console.log('cache miss')
     }
-    console.log(response)
+    console.log(response.data)
 
     return {
         props: {
