@@ -11,8 +11,8 @@ import { RootState } from '../../redux/store'
 // data from the user query should be accessible to this component 
 // will need to loop over the results generated and populate the properties within the Result component
 const Results = ({data}: any) => {
-
-    console.log(data)
+    const userQuery = useSelector((state: RootState) => state.userManagementState.userQuery)
+    console.log(userQuery)
   return (
     <div className='flex flex-col items-center h-screen bg-gray-300'>
         <div className='h-1/6'>
@@ -26,19 +26,25 @@ const Results = ({data}: any) => {
             <SearchProductsButton />
         </div>
 
-        <div className='h-1/6 w-full flex justify-center xl:justify-start xl:ml-36'>
-            <h2 className='text-xl text-black sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl'>Search Results for userinput</h2>
+        <div className='h-1/12 relative bottom-14 w-full flex justify-center xl:justify-start xl:ml-36'>
+            <h2 className='h-1/6 text-xl text-black sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl'>Results for <span className='italic'>{userQuery}</span></h2>
         </div>
-        
-        <div className='h-3/6 w-4/5 bg-blue-300 flex flex-col lg:flex-row lg:flex-wrap lg:justify-around gap-y-3 gap-x-3 overflow-auto'>
+
+
+        <div className='h-4/6 w-4/5 bg-blue-300 flex flex-col gap-y-3 gap-x-3'>
             {/* will contain the list of products returned to the user */}
             {/* <div className='h-full w-full flex flex-row justify-around flex-wrap gap-x-3 gap-y-3'> */}
                 {/* map over all results returned here */}
-                {/* <div className='h-1/2 w-1/2'> */}
+                {/* <div className='relative h-1/2 w-1/2'> */}
 
-                {/* {data.organic_results.map((result: any) => (
-                    <Result itemName={result.title} price='$1.99 per pound' location={result.url} key={result.position}/>
-                    ))} */}
+                {data.local_results.map((result: any) => (
+                    <Result 
+                    photo={result.thumbnail}
+                    itemName={result.title} 
+                    price='$1.99 per pound' 
+                    location={result.url} 
+                    key={result.position}/>
+                    ))}
 
                 {/* </div> */}
             {/* </div> */}
