@@ -61,8 +61,8 @@ const SearchResult = ({photo, itemName, address, resultId, phone, hours, coordin
                 }
               </div>
               <div className='relative top-3 text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl mx-6'>{itemName}</div>
-              <div className='text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl mx-6'>{address}</div>
-              <div className='text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl mx-6'>{address}</div>
+              <div className='text-sm sm:text-sm md:text-md lg:text-lg xl:text-xl mx-6 my-2'>{description}</div>
+              <div className='text-sm sm:text-sm md:text-md lg:text-lg xl:text-xl mx-6 my-2'>{address}</div>
             </div>
         </div>
 
