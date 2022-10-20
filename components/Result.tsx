@@ -14,11 +14,22 @@ import ViewDetails from './effects/ViewDetails'
 
 */
 
-const SearchResult = ({photo, itemName, address, location, resultId}: Result) => {
+const SearchResult = ({photo, itemName, address, resultId, phone, hours, coordinates, description}: Result<{latitude: number, longitude: number}>) => {
   const router = useRouter();
   const [isHovering, setIsHovering] = useState<boolean>(false)
   const resultDetails = () => {
-    router.push(`/results/${resultId}`)
+    router.push({
+      pathname: `/results/${resultId}`,
+      query: {
+        itemName,
+        address,
+        phone,
+        hours, 
+        latitude: coordinates.latitude,
+        longitude: coordinates.longitude,
+        description
+      }
+    })
   }
 
   const showDetailsComponent = () => setIsHovering(true)
@@ -28,12 +39,12 @@ const SearchResult = ({photo, itemName, address, location, resultId}: Result) =>
       {/* details will render softly over each result*/}
         <div className='flex flex-col justify-center gap-y-3 h-full basis-0 rounded-lg'>
 
-            <div className='flex flex-col gap-y-3 my-6'>
+            <div className='flex flex-col gap-y-2 my-6'>
               <div className='flex justify-center mx-10 relative' onMouseOver={showDetailsComponent} onMouseOut={removeDetailsComponent}>
                 <Image 
                   className='flex justify-center mx-10 rounded-lg'
                   alt='thumbnail'
-                  src={`${photo}`}
+                  src={`${photo !== undefined ? photo : '/'}`}
                   width={300}
                   height={300}
                   />
@@ -49,8 +60,8 @@ const SearchResult = ({photo, itemName, address, location, resultId}: Result) =>
                 </div>
                 }
               </div>
-              <div className='text-md sm:text-lg md:text-xl lg:text-2xl xl:text-3xl mx-6'>{itemName}</div>
-              <div className='text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl mx-6'>{location}</div>
+              <div className='relative top-3 text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl mx-6'>{itemName}</div>
+              <div className='text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl mx-6'>{address}</div>
               <div className='text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl mx-6'>{address}</div>
             </div>
         </div>

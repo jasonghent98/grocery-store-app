@@ -1,7 +1,11 @@
-export interface Result {
+export interface Result<T> {
     photo?: string,
     itemName: string,
     address: string,
-    location: string
     resultId: string
+    phone: string,
+    hours: string,
+    coordinates: any,
+    description: string
 }
+

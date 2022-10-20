@@ -19,13 +19,13 @@ const Results = ({data}: any) => {
                 <Navbar/>
             </div>
         </div>
-        <div className='flex gap-x-10 h-1/6 w-3/5'>
-            <SearchBar styles={'rounded-lg w-full h-full text-black bg-gray-200 relative placeholder:italic pl-3 placeholder:sm:text-xl placeholder:md:text-2xl placeholder:lg:text-3xl placeholder:xl:text-4xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl'}/>
+        <div className='flex flex-col gap-y-4 sm:flex-row md:flex-row lg:flex-row xl:flex-row gap-x-10 h-1/6 w-3/5'>
+            <SearchBar styles={'rounded-lg w-full h-full text-black bg-gray-200 relative placeholder:italic pl-3 py-2 placeholder:sm:text-lg placeholder:md:text-xl placeholder:lg:text-2xl placeholder:xl:text-3xl sm:text-md md:text-lg lg:text-xl xl:text-2xl'}/>
             <SearchProductsButton />
         </div>
 
-        <div className='h-1/12 relative bottom-14 w-full flex justify-center xl:justify-start xl:ml-36'>
-            <h2 className='h-1/6 text-xl text-black sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl'>Results for<span className='italic'>{userQuery}</span></h2>
+        <div className='h-1/12 relative w-full flex justify-center xl:justify-start xl:ml-36'>
+            {userQuery && <h2 className='h-1/6 text-xl text-black sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl'>Results for <span className='italic'>{userQuery}</span></h2>}
         </div>
 
         <div className='h-4/6 overflow-auto w-4/5 flex my-4'>
@@ -35,10 +35,13 @@ const Results = ({data}: any) => {
                 <Result 
                     photo={result.thumbnail}
                     itemName={result.title} 
-                    address={result.address} 
-                    location={result.url} 
+                    address={result.address}  
                     key={result.position}
                     resultId={result.position}
+                    phone={result.phone}
+                    hours={result.hours}
+                    coordinates={result.gps_coordinates}
+                    description={result.description}
                 />
                 ))}
 
@@ -92,6 +95,7 @@ export async function getServerSideProps(context:any) {
         cacheData.put(queryString, response, (86400 * 1000))
         console.log('cache miss')
     }
+
 
     return {
         props: {
