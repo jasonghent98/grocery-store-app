@@ -2,24 +2,25 @@
 import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-const RenderMap = () => {
+const RenderMap = ({latitude, longitude}: {latitude: number, longitude: number}) => {
     const Map = ReactMapboxGl({
         accessToken: `${process.env.NEXT_PUBLIC_MAPBOX_KEY}`
     });
 
+    console.log(latitude, longitude)
   return (
-    <div>
+    <div className='bottom-28 h-full w-full'>
         <Map
             style="mapbox://styles/mapbox/streets-v9"
             containerStyle={{
-            height: '100vh',
-            width: '100vw'
+            height: '100%',
+            width: '100%'
             }}
         >
             <Layer type="symbol" id="marker" layout={{ 'icon-image': 'marker-15' }}>
-            <Feature coordinates={[-0.481747846041145, 51.3233379650232]} />
+            <Feature coordinates={[latitude, longitude]} />
             </Layer>
-        </Map>;
+        </Map>
     </div>
   )
 }

@@ -48,8 +48,8 @@ const Product = ({data}: any) => {
             <div className='text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl'>{data.hours}</div>
           </div>
           {/* map API to display relative location */}
-          <div className='w-1/2 mx-8'>
-              <RenderMap/>
+          <div className='w-1/2 h-1/2 mx-8'>
+              <RenderMap latitude={data.latitude} longitude={data.longitude} />
           </div>
        </div>
 
