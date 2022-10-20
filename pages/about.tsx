@@ -60,7 +60,7 @@ const About = () => {
           <div className='mx-36'><Walmart/></div>
           <div className='mx-36'><TraderJoes/></div>
           <div className='mx-36'><Aldi/></div>
-        </div>
+        </div> 
         <div></div>
       </div>
 

@@ -1,6 +1,13 @@
 import { SET_USER_LOCATION, SET_USER_INPUT } from "../actionTypes";
 
-const userManagementState = (state: any = {}, action: any = {}) => {
+const INITIAL_STATE = {
+    userLocation: {},
+    userQuery: null,
+    appIsLoaded: false
+
+}
+
+const userManagementState = (state: any = INITIAL_STATE, action: any = {}) => {
     switch(action.type) {
         case SET_USER_LOCATION:
             return {
@@ -11,6 +18,11 @@ const userManagementState = (state: any = {}, action: any = {}) => {
             return {
                 ...state,
                 userQuery: action.query
+            }
+        case 'SET_APP_AS_LOADED':
+            return {
+                ...state,
+                appIsLoaded: true
             }
         default:
             return {...state}

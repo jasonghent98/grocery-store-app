@@ -19,7 +19,6 @@ const Results = ({data}: any) => {
                 <Navbar/>
             </div>
         </div>
-
         <div className='flex gap-x-10 h-1/6 w-3/5'>
             <SearchBar styles={'rounded-lg w-full h-full text-black bg-gray-200 relative placeholder:italic pl-3 placeholder:sm:text-xl placeholder:md:text-2xl placeholder:lg:text-3xl placeholder:xl:text-4xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl'}/>
             <SearchProductsButton />
@@ -29,8 +28,7 @@ const Results = ({data}: any) => {
             <h2 className='h-1/6 text-xl text-black sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl'>Results for<span className='italic'>{userQuery}</span></h2>
         </div>
 
-        <div className='h-4/6 overflow-auto w-4/5 flex'>
-
+        <div className='h-4/6 overflow-auto w-4/5 flex my-4'>
             <div className='h-full w-full flex flex-col md:grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-y-5 gap-x-3'>
                 {/* map over all results returned here */}
                 {data.local_results.map((result: any) => (
@@ -94,7 +92,6 @@ export async function getServerSideProps(context:any) {
         cacheData.put(queryString, response, (86400 * 1000))
         console.log('cache miss')
     }
-    console.log(response.data)
 
     return {
         props: {

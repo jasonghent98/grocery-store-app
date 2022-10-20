@@ -1,14 +1,16 @@
-import React from 'react'
+import React, {useState} from 'react'
 import useDeepEffect from '../../utility/useDeepEffect'
 import {useSelector, useDispatch} from 'react-redux'
 import type { RootState } from '../../redux/store'
 import { setUserLocation } from '../../redux/actions/userActions'
 import axios from 'axios'
+import { dividerClasses } from '@mui/material'
+import { setAppAsLoaded } from '../../redux/actions/appActions'
 
 const GetGeolocation = ({children}: any) => {
-
     const dispatch = useDispatch();
-    const userLocation = useSelector((state: RootState) => state.userManagementState.userLocation)
+    const {userLocation, appIsLoaded} = useSelector((state: RootState) => state.userManagementState)
+    console.log(userLocation, appIsLoaded)
   
     // grab the user location when user routes to the home page and store as globally available state
     // only run useEffect when the city has changed within the memo object
@@ -36,12 +38,13 @@ const GetGeolocation = ({children}: any) => {
           }  
           getUserCoordinates() 
           console.log('running useEffect')
+          dispatch(setAppAsLoaded())
   
     }, [userLocation])
 
   return (
     <div>{children}</div>
-  )
+    )
 }
 
 export default GetGeolocation
