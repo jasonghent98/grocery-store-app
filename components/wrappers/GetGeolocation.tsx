@@ -10,7 +10,6 @@ import { setAppAsLoaded } from '../../redux/actions/appActions'
 const GetGeolocation = ({children}: any) => {
     const dispatch = useDispatch();
     const {userLocation, appIsLoaded} = useSelector((state: RootState) => state.userManagementState)
-    console.log(userLocation, appIsLoaded)
   
     // grab the user location when user routes to the home page and store as globally available state
     // only run useEffect when the city has changed within the memo object

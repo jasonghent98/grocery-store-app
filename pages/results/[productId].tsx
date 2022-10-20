@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import Navbar from '../../components/Navbar'
 import axios from 'axios'
 import { dividerClasses } from '@mui/material'
+import RenderMap from '../../components/Map'
 
 // dynamic page that will contain all the detailed information about a searched product in the client's area
 // need to ensure the api results contain locations so that we can provide a map for the user for locating stores
@@ -13,13 +14,20 @@ const Product = ({data}: any) => {
   // `https://api.mapbox.com/geocoding/v5/mapbox.places/${data.latitude},${data.longitude}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_KEY}`
     const router = useRouter()
     const {productId} = router.query
-    console.log(data)
 
 
     useEffect(() => {
+
+      const createMapWithLocation = async () => {
+        const response = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${data.latitude},${data.longitude}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_KEY}`)
+        return response
+      }
+
+      // wait for the api to render map before setting page as loaded
+      // createMapWithLocation().then(res => console.log(res)).catch(err => console.log(err))
       setIsLoading(false)
       console.log(isLoading)
-    }, [isLoading])
+    }, [isLoading, data.latitude, data.longitude])
   return (
     <div className='h-screen bg-gray-300'>
       {!isLoading ? 
@@ -41,7 +49,7 @@ const Product = ({data}: any) => {
           </div>
           {/* map API to display relative location */}
           <div className='w-1/2 mx-8'>
-              placeholder
+              <RenderMap/>
           </div>
        </div>
 
