@@ -7,11 +7,11 @@ import axios from 'axios'
 import cacheData from 'memory-cache'
 import { ListItem } from '@mui/material'
 import { RootState } from '../../redux/store'
+import PaginationLink from '../../components/buttons/PaginationButton'
 
 // data from the user query should be accessible to this component 
 // will need to loop over the results generated and populate the properties within the Result component
 const Results = ({data}: any) => {
-    console.log(data)
     const userQuery = useSelector((state: RootState) => state.userManagementState.userQuery)
   return (
     <div className='flex flex-col items-center h-screen relative bg-gray-300'>
@@ -46,6 +46,8 @@ const Results = ({data}: any) => {
                 />
                 ))}
 
+                {/* pagination button will take in the next route as a route and  */}
+                <PaginationLink nextPages={data.serpapi_pagination} />
             </div>
         </div>
     </div>
@@ -61,6 +63,40 @@ const Results = ({data}: any) => {
  */
 export async function getServerSideProps(context:any) {
     const {query, req, res} = context
+    let response: any;
+
+    console.log(cacheData.keys())
+    // handle pagination request
+    if (query.paginationPath) {
+        const {paginationPath} = query;
+        // if the current page has already been requested and cached.. return it
+        if (!cacheData.get(`${response?.data?.search_parameters.q} - ${response?.data?.serpapi_pagination?.current}`)) {
+            response = await axios.get(paginationPath, {
+                params: {
+                'api_key': process.env.NEXT_PUBLIC_SERPAPI_KEY
+                } 
+            })
+
+            // cache the response from this pagination request
+            cacheData.put(`${response.data.search_parameters.q} - ${response.data.serpapi_pagination.current}`, response, (86400 * 1000))
+            console.log(cacheData.get(`${response.data.search_parameters.q} - ${response.data.serpapi_pagination.current}`))
+            console.log('cache miss for pagination req')
+
+        } else {
+            console.log('cache hit for pagination req!')
+            response = cacheData.get(`${response.data.search_parameters.q} - ${response.data.serpapi_pagination.current}`)
+        }
+
+        return {
+            props: {
+                data: response.data 
+            }
+        } 
+
+    }
+
+    /** !!!handle first request!!!  */
+
     let {queryString, userCity, userState, userCountry} = query;
 
     // handle multi-word locations
@@ -72,29 +108,16 @@ export async function getServerSideProps(context:any) {
     userCountry = userCountry.join('+')
 
 
-    // mock api call test
-    res.setHeader(
-        'Cache-Control',
-        'test123'
-    )
-
-    // add the user city as a query param to the api call
-    let response: any;
     if (cacheData.get(queryString)) {
-        console.log('cache hit!')
+        console.log('first query cache hit!')
         response = cacheData.get(queryString)
     } else {
-        //  response = await axios.get('https://app.scrapingbee.com/api/v1/store/google', { params: {
-        // 'api_key': process.env.NEXT_PUBLIC_GOOGLE_SCRAPER_KEY,
-        // 'search': q,
-        // 'near': userLocation
-        // }});
         response = await axios.get(`https://serpapi.com/search.json?q=${queryString}&location=${userCity},+${userState},+${userCountry}&tbm=lcl`, { params: {
             'api_key': process.env.NEXT_PUBLIC_SERPAPI_KEY
             }
         })
         cacheData.put(queryString, response, (86400 * 1000))
-        console.log('cache miss')
+        console.log('first query cache miss')
     }
 
 
