@@ -1,9 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import { useRouter } from 'next/router'
 import Navbar from '../../components/Navbar'
 import axios from 'axios'
 import { dividerClasses } from '@mui/material'
 import RenderMap from '../../components/Map'
+const mapboxgl = require('mapbox-gl')
+import MapRender from '../../components/Map'
 
 // dynamic page that will contain all the detailed information about a searched product in the client's area
 // need to ensure the api results contain locations so that we can provide a map for the user for locating stores
@@ -11,11 +13,17 @@ import RenderMap from '../../components/Map'
 const Product = ({data}: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
+  const mapContainer = useRef(null);
+  const map = useRef(null);
+  const [lng, setLng] = useState(-70.9);
+  const [lat, setLat] = useState(42.35);
+  const [zoom, setZoom] = useState(9);
+
   // `https://api.mapbox.com/geocoding/v5/mapbox.places/${data.latitude},${data.longitude}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_KEY}`
     const router = useRouter()
     const {productId} = router.query
 
-
+    // 
     useEffect(() => {
 
       const createMapWithLocation = async () => {
@@ -28,6 +36,7 @@ const Product = ({data}: any) => {
       setIsLoading(false)
       console.log(isLoading)
     }, [isLoading, data.latitude, data.longitude])
+
   return (
     <div className='h-screen bg-gray-300'>
       {!isLoading ? 
@@ -48,8 +57,11 @@ const Product = ({data}: any) => {
             <div className='text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl'>{data.hours}</div>
           </div>
           {/* map API to display relative location */}
-          <div className='w-1/2 h-1/2 mx-8'>
+          {/* <div className='w-1/2 h-1/2 mx-8'>
               <RenderMap latitude={data.latitude} longitude={data.longitude} />
+          </div> */}
+          <div className='w-1/2 h-1/2 mx-8'>
+            <MapRender latitude={data.latitude} longitude={data.longitude}/>
           </div>
        </div>
 
