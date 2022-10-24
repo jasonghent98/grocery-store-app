@@ -17,6 +17,14 @@ export default function MapRender({latitude, longitude}: {latitude: string, long
           zoom: 11
         });
         const marker = new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map)
+        map.addControl(new mapboxgl.GeolocateControl({
+          positionOptions: {
+              enableHighAccuracy: true
+          },
+          trackUserLocation: true,
+          showUserLocation: true,
+          showUserHeading: true
+        }));
         setMap(map);
       }
     }, [ref, map]);
