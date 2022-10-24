@@ -13,8 +13,8 @@ export default function MapRender({latitude, longitude}: {latitude: string, long
         const map = new mapboxgl.Map({
           container: ref.current,
           style: "mapbox://styles/mapbox/streets-v11",
-          center: [0, 0],
-          zoom: 1
+          center: [longitude, latitude],
+          zoom: 11
         });
         const marker = new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map)
         setMap(map);

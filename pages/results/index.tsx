@@ -11,6 +11,7 @@ import { RootState } from '../../redux/store'
 // data from the user query should be accessible to this component 
 // will need to loop over the results generated and populate the properties within the Result component
 const Results = ({data}: any) => {
+    console.log(data)
     const userQuery = useSelector((state: RootState) => state.userManagementState.userQuery)
   return (
     <div className='flex flex-col items-center h-screen relative bg-gray-300'>

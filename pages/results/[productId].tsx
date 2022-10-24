@@ -49,7 +49,7 @@ const Product = ({data}: any) => {
         </div>
 
           {/* product details */}
-        <div className='bg-red-400 h-5/6 flex flex-col gap-y-32 justify-center items-center md:flex-row mx-10 lg:flex-row mx-10 xl:flex-row mx-10'>
+        <div className='bg-gray-400 h-5/6 flex flex-col gap-y-32 justify-center items-center mx-12 lg:flex-row xl:flex-row'>
           <div className='flex flex-col gap-y-3 w-1/2 mx-8'>
             <h1 className='text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold'>{data.itemName}</h1>
             <div className='text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl'>{data.address}</div>
@@ -60,7 +60,7 @@ const Product = ({data}: any) => {
           {/* <div className='w-1/2 h-1/2 mx-8'>
               <RenderMap latitude={data.latitude} longitude={data.longitude} />
           </div> */}
-          <div className='w-1/2 h-1/2 mx-8'>
+          <div className='w-3/4 lg:w-1/2 xl:w-1/2 h-1/2 lg:mr-14 xl:mr-14 '>
             <MapRender latitude={data.latitude} longitude={data.longitude}/>
           </div>
        </div>
