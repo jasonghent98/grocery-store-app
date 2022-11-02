@@ -6,6 +6,12 @@ import axios from 'axios'
 import SearchForProducts from '../components/SearchForProducts'
 import Navbar from '../components/Navbar'
 
+// serves as the main search page... will eventually need to be changed to /searchproduct route
+// if there is no user, we should route them to the sign up page, which gives users an option to do the following:
+// 1. create an account, login, proceed w/o an account
+
+// users can access this page if they are logged in or if they have already been to the register page and decided to proceed w/o 
+// creating an account, which can be managed with some state
 const Home: NextPage = ({data}: any) => {
   
   return (
