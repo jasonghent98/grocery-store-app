@@ -153,6 +153,32 @@ export default function PersistentDrawerLeft() {
             </ListItem>
           ))}
         </List>
+        <Divider />
+        <List>
+          {['Create An Account'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton onClick={() => router.push('/register')} className='hover:text-[#FF6B18] delay-150'>
+                <ListItemIcon >
+                    <InfoIcon />
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['Login'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton onClick={() => router.push('/login')} className='hover:text-[#FF6B18] delay-150'>
+                <ListItemIcon >
+                    <InfoIcon />
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
       </Drawer>
     </Box>
   );
