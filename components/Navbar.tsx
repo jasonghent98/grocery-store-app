@@ -8,7 +8,7 @@ import SearchBar from './SearchBar'
 const Navbar = () => {
   const router = useRouter()
   return (
-      <div className='h-full'>
+      <div className='h-1/6'>
         <ResponsiveDrawer />
       </div> 
   )

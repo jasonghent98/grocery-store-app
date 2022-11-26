@@ -1,9 +1,7 @@
 import React from 'react'
 
-const login = () => {
+export default function Login () {
   return (
-    <div>user will authenticate here</div>
+    <div>user will authenticate here dsa testing again having the time</div>
   )
 }
-
-export default login

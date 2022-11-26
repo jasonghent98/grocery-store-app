@@ -36,7 +36,7 @@ const GetGeolocation = ({children}: any) => {
             }))
           }  
           getUserCoordinates() 
-          console.log('running useEffect')
+          console.log('running geolocation useEffect')
           dispatch(setAppAsLoaded())
   
     }, [userLocation])

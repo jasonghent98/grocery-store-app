@@ -7,11 +7,12 @@ import axios from 'axios'
 import cacheData from 'memory-cache'
 import { ListItem } from '@mui/material'
 import { RootState } from '../../redux/store'
-import PaginationLink from '../../components/buttons/PaginationButton'
+import BasicPagination from '../../components/buttons/PaginationButton'
 
 // data from the user query should be accessible to this component 
 // will need to loop over the results generated and populate the properties within the Result component
 const Results = ({data}: any) => {
+    console.log(data)
     const userQuery = useSelector((state: RootState) => state.userManagementState.userQuery)
   return (
     <div className='flex flex-col items-center h-screen relative bg-gray-300'>
@@ -47,7 +48,8 @@ const Results = ({data}: any) => {
                 ))}
 
                 {/* pagination button will take in the next route as a route and  */}
-                <PaginationLink nextPages={data.serpapi_pagination} />
+                {/* <PaginationLink nextPages={data.serpapi_pagination} /> */}
+                <BasicPagination />
             </div>
         </div>
     </div>
@@ -65,7 +67,6 @@ export async function getServerSideProps(context:any) {
     const {query, req, res} = context
     let response: any;
 
-    console.log(cacheData.keys())
     // handle pagination request
     if (query.paginationPath) {
         const {paginationPath} = query;
@@ -112,7 +113,7 @@ export async function getServerSideProps(context:any) {
         console.log('first query cache hit!')
         response = cacheData.get(queryString)
     } else {
-        response = await axios.get(`https://serpapi.com/search.json?q=${queryString}&location=${userCity},+${userState},+${userCountry}&tbm=lcl`, { params: {
+        response = await axios.get(`https://serpapi.com/search.json?q=${queryString}`, { params: {
             'api_key': process.env.NEXT_PUBLIC_SERPAPI_KEY
             }
         })
@@ -125,7 +126,7 @@ export async function getServerSideProps(context:any) {
         props: {
             data: response.data
         }
-    }
-}
+    }      
+} 
 
 export default Results
