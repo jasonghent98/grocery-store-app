@@ -5,6 +5,9 @@ import styles from '../styles/Home.module.css'
 import axios from 'axios'
 import SearchForProducts from '../components/SearchForProducts'
 import Navbar from '../components/Navbar'
+import { useSelector } from 'react-redux'
+import { RootState } from '../redux/store'
+import useDeepEffect from '../utility/useDeepEffect'
 
 // serves as the main search page... will eventually need to be changed to /searchproduct route
 // if there is no user, we should route them to the sign up page, which gives users an option to do the following:
@@ -13,7 +16,12 @@ import Navbar from '../components/Navbar'
 // users can access this page if they are logged in or if they have already been to the register page and decided to proceed w/o 
 // creating an account, which can be managed with some state
 const Home: NextPage = ({data}: any) => {
+  const user = useSelector((state: RootState) => state.userManagementState.user)
   
+  useDeepEffect(() => {
+    console.log(user)
+  }, [user])
+
   return (
     <div className='flex flex-col justify-center items-center bg-gray-300 h-screen'>
       <Navbar/> 

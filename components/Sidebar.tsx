@@ -19,6 +19,8 @@ import ListItemText from '@mui/material/ListItemText';
 import InfoIcon from '@mui/icons-material/Info';
 import SearchIcon from '@mui/icons-material/Search';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
 
 const drawerWidth = 240;
 
@@ -78,6 +80,7 @@ export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const router = useRouter()
+  const user = useSelector((state: RootState) => state.userManagementState.user)
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -86,6 +89,8 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  console.log(user.email)
 
   return (
     <Box className='relative h-full w-screen'sx={{ display: 'flex' }}>
@@ -109,6 +114,9 @@ export default function PersistentDrawerLeft() {
           </Typography>
         </Toolbar>
       </AppBar>
+
+      {/* if !user, show login and register options */}
+      {!user.email ? 
       <Drawer
         sx={{
             width: drawerWidth,
@@ -180,6 +188,69 @@ export default function PersistentDrawerLeft() {
           ))}
         </List>
       </Drawer>
+
+      : 
+
+      <Drawer
+        sx={{
+            width: drawerWidth,
+            flexShrink: 0,
+            '& .MuiDrawer-paper': {
+                width: drawerWidth,
+                boxSizing: 'border-box',
+            },
+        }}
+        variant="persistent"
+        anchor="left"
+        open={open}
+        >
+        <DrawerHeader>
+          <IconButton className='' onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
+          {['Search Items Nearby'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton onClick={() => router.push('/')} className='hover:text-[#FF6B18] delay-150'>
+                <ListItemIcon >
+                    <SearchIcon />
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['About Us'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton onClick={() => router.push('/about')} className='hover:text-[#FF6B18] delay-150'>
+                <ListItemIcon >
+                    <InfoIcon />
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['Log out'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton onClick={() => router.push('/register')} className='hover:text-[#FF6B18] delay-150'>
+                <ListItemIcon >
+                    <InfoIcon />
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+      </Drawer>
+      } 
     </Box>
   );
 }
