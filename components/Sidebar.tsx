@@ -19,8 +19,12 @@ import ListItemText from '@mui/material/ListItemText';
 import InfoIcon from '@mui/icons-material/Info';
 import SearchIcon from '@mui/icons-material/Search';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
+import { setUserObject } from '../redux/actions/userActions';
+
+// sign out function
+import { signOutUser } from '../auth/logout';
 
 const drawerWidth = 240;
 
@@ -80,7 +84,12 @@ export default function PersistentDrawerLeft() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const router = useRouter()
+
+  // state to change UI
   const user = useSelector((state: RootState) => state.userManagementState.user)
+
+  // to reset the state user object
+  const dispatch = useDispatch()
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -90,7 +99,12 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
   };
 
-  console.log(user.email)
+  // logout handler
+  const logoutHandler = async () => {
+    await signOutUser()
+    dispatch(setUserObject({email: null, uid: null, phoneNumber: null}))   
+    router.push('/home')
+  }
 
   return (
     <Box className='relative h-full w-screen'sx={{ display: 'flex' }}>
@@ -239,7 +253,8 @@ export default function PersistentDrawerLeft() {
         <List>
           {['Log out'].map((text, index) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton onClick={() => router.push('/register')} className='hover:text-[#FF6B18] delay-150'>
+              {/* home page lets you sign/log in/ create */}
+              <ListItemButton onClick={logoutHandler} className='hover:text-[#FF6B18] delay-150'>
                 <ListItemIcon >
                     <InfoIcon />
                 </ListItemIcon>

@@ -18,8 +18,9 @@ import useDeepEffect from '../utility/useDeepEffect'
 const Home: NextPage = ({data}: any) => {
   const user = useSelector((state: RootState) => state.userManagementState.user)
   
+  // checking an {}, deep equality
   useDeepEffect(() => {
-    console.log(user)
+    console.log(user, 'from search page')
   }, [user])
 
   return (

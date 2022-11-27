@@ -1,21 +1,25 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState } from 'react'
 import RouteButton from '../buttons/routeButton'
 import { signUpUser } from '../../auth/register'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setUserObject } from '../../redux/actions/userActions'
+import { useRouter } from 'next/router'
 
 // will serve as the card for both the register and the login routes
 const Card = () => {
-    const user = useSelector((state: any) => state.userManagementState.user)
-
+    // hooks
+    const router = useRouter();
     const dispatch = useDispatch();
+
+    // state
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [confirmPassword, setConfirmPassword] = useState<string>('')
     const [phoneNumber, setPhoneNumber] = useState<string>('')
 
+    // event handler
     const onRegisterHandler = async () => {
-        // passwords must match
+        // passwords must match here
         if (password !== confirmPassword) {
             throw new Error('Passwords must match')
             return;
@@ -35,7 +39,8 @@ const Card = () => {
                     phoneNumber
                 })
             )
-           return;
+           router.push('/');
+           return 
         }
         user = await signUpUser(email, password)
         dispatch(
@@ -45,13 +50,9 @@ const Card = () => {
                 phoneNumber: null 
             })
         )
+        router.push('/')
+        return
     }
-
-
-    useEffect(() => {
-        console.log(user)
-    }, [user]) // ref object
-    
 
   return (
     <div className="flex flex-col gap-y-8 justify-center items-center w-3/5 h-4/5 bg-gray-200 rounded-lg text-black">
