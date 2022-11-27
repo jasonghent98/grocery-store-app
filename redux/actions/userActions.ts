@@ -1,5 +1,7 @@
-import {SET_USER_LOCATION, SET_USER_INPUT} from '../actionTypes' 
-import { UserLocation } from '../../types/reduxActions.ts/userActionTypes'
+import {SET_USER_LOCATION, SET_USER_INPUT, SET_USER_OBJECT} from '../actionTypes' 
+import { UserLocation } from '../../types/reduxActions/userActionTypes'
+import { User } from '../../types/reduxActions/user'
+
 
 export const setUserLocation = ({latitude, longitude, city, state, country}: UserLocation) => ({
     type: SET_USER_LOCATION,
@@ -16,4 +18,14 @@ export const setUserLocation = ({latitude, longitude, city, state, country}: Use
 export const setUserInput = (query: string) => ({
     type: SET_USER_INPUT,
     query
+})
+
+// create and store a user object
+export const setUserObject = ({email, phoneNumber, uid}: User) => ({
+    type: SET_USER_OBJECT,
+    user: {
+        email,
+        phoneNumber,
+        uid
+    }
 })
