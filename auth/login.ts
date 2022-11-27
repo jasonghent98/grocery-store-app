@@ -1,9 +1,8 @@
 import {getAuth, signInWithPhoneNumber, RecaptchaVerifier} from "firebase/auth"
-import {app} from './firebase'
+import {auth} from './firebase'
 
-// init the auth instance that will provide auth methods to your app
-const auth = getAuth(app)
 
+// global object that already exists for the ts compiler
 declare global {
     interface Window {
         recaptchaVerifier: any,
@@ -11,7 +10,7 @@ declare global {
     }
 }
 
-
+// setup recaptcha on the client
 window.recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
     'size': 'invisible',
     'callback': <T>(response: T): T => {
@@ -22,14 +21,30 @@ window.recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
 
 const appVerifier = window.recaptchaVerifier;
 
+
+// phone sign in
 const signInWithPhone = (phoneNumber: string, authValue = auth, verifier = appVerifier) => {
     signInWithPhoneNumber(auth, phoneNumber, verifier).then(confirmationResult => {
       // SMS sent. Prompt user to type the code from the message, then sign the
       // user in with confirmationResult.confirm(code).
       window.confirmationResult = confirmationResult;
+      console.log(confirmationResult)
+      // method needs to be defined and called when the user is prompted to 
+      // pass in the verification code they were sent
+      // const code = getCodeFromUserInput()
+
+
+      // if this call succeeds, the user will be successfully signed in, else, they wont
+      // confirmationResult.confirm(code).then(<T>(result: T) => {
+      //   const user = result.user
+      // }).catch(err => {
+      //   console.log("user code verification failed", err)
+      // })
+
+
     }).catch(error => {
         // err. SMS not sent
-        console.log(error)
+        console.log("signInWithPhoneNumber failed", error)
 
         // reset recaptcha on client browser
         window.recaptchaVerifier.render().then(<T>(widgetId: T) => {

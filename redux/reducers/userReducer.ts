@@ -1,10 +1,15 @@
-import { SET_USER_LOCATION, SET_USER_INPUT } from "../actionTypes";
+import { SET_USER_LOCATION, SET_USER_INPUT, SET_USER_OBJECT } from "../actionTypes";
+import { User } from "../../types/reduxActions/user";
 
 const INITIAL_STATE = {
     userLocation: {},
     userQuery: null,
-    appIsLoaded: false
-
+    appIsLoaded: false,
+    user: {
+        email: null,
+        phoneNumber: null,
+        uid: null
+    }
 }
 
 const userManagementState = (state: any = INITIAL_STATE, action: any = {}) => {
@@ -23,6 +28,15 @@ const userManagementState = (state: any = INITIAL_STATE, action: any = {}) => {
             return {
                 ...state,
                 appIsLoaded: true
+            }
+        case SET_USER_OBJECT:
+            return {
+                ...state,
+                user: {
+                    email: action.user.email,
+                    phoneNumber: action.user.phoneNumber,
+                    uid: action.user.uid
+                }
             }
         default:
             return {...state}

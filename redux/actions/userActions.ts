@@ -21,7 +21,7 @@ export const setUserInput = (query: string) => ({
 })
 
 // create and store a user object
-export const setUserObject = ({email, phoneNumber, uid}: User) => ({
+export const setUserObject = ({email, uid, phoneNumber}: User) => ({
     type: SET_USER_OBJECT,
     user: {
         email,

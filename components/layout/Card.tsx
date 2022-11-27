@@ -1,23 +1,57 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import RouteButton from '../buttons/routeButton'
 import { signUpUser } from '../../auth/register'
+import { useDispatch, useSelector } from 'react-redux'
+import { setUserObject } from '../../redux/actions/userActions'
 
 // will serve as the card for both the register and the login routes
 const Card = () => {
+    const user = useSelector((state: any) => state.userManagementState.user)
 
-    const onRegisterHandler = async () => {
-        // if user provided phone number, pass into function
-        if (phoneNumber !== '') {
-           await signUpUser(email, password, phoneNumber)
-           return;
-        }
-        await signUpUser(email, password)
-    }
-    
+    const dispatch = useDispatch();
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [confirmPassword, setConfirmPassword] = useState<string>('')
     const [phoneNumber, setPhoneNumber] = useState<string>('')
+
+    const onRegisterHandler = async () => {
+        // passwords must match
+        if (password !== confirmPassword) {
+            throw new Error('Passwords must match')
+            return;
+        }
+
+        let user;
+        // phone number is optional
+        if (phoneNumber !== '') {
+           user = await signUpUser(email, password, phoneNumber)
+           // if err out, stop function and prompt user that req failed
+
+           // continue, store user data to redux
+            dispatch(
+                setUserObject({
+                    email, 
+                    uid: user.uid, 
+                    phoneNumber
+                })
+            )
+           return;
+        }
+        user = await signUpUser(email, password)
+        dispatch(
+            setUserObject({
+                email, 
+                uid: user.uid, 
+                phoneNumber: null 
+            })
+        )
+    }
+
+
+    useEffect(() => {
+        console.log(user)
+    }, [user]) // ref object
+    
 
   return (
     <div className="flex flex-col gap-y-8 justify-center items-center w-3/5 h-4/5 bg-gray-200 rounded-lg text-black">
@@ -46,7 +80,7 @@ const Card = () => {
                     setPassword(target.value)
                  }}>
                 <label className=' w-full text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg' htmlFor="email" id='password'>Password:</label>
-                <input className='rounded-md placeholder:pl-2 pl-2 w-full'type="text" placeholder='Password' required />
+                <input className='rounded-md placeholder:pl-2 pl-2 w-full' type="password" placeholder='Password' id="password" required />
             </div>
 
             <div 
@@ -56,7 +90,7 @@ const Card = () => {
                     setConfirmPassword(target.value)
                  }}>
                 <label className=' w-full text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg' htmlFor="email">Confirm Password:</label>
-                <input className='rounded-md placeholder:pl-2 pl-2 w-full'type="text" placeholder='Confirm Password' id='confirmPassword' required />
+                <input className='rounded-md placeholder:pl-2 pl-2 w-full'type="password" placeholder='Confirm Password' id='confirmPassword' required />
             </div>
 
             <div 
@@ -66,7 +100,7 @@ const Card = () => {
                     setPhoneNumber(target.value)
                  }}>
                 <label className=' w-full text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg' htmlFor="email">Phone Number (Optional): </label>
-                <input className='rounded-md placeholder:pl-2 pl-2 w-full'type="text" placeholder='Phone Number' id='confirmPassword' />
+                <input className='rounded-md placeholder:pl-2 pl-2 w-full'type="text" placeholder='Phone Number' id='phoneNumber' />
             </div>
 
             <div 
