@@ -7,7 +7,6 @@ import axios from 'axios'
 import cacheData from 'memory-cache'
 import { ListItem } from '@mui/material'
 import { RootState } from '../../redux/store'
-import BasicPagination from '../../components/buttons/PaginationButton'
 
 // data from the user query should be accessible to this component 
 // will need to loop over the results generated and populate the properties within the Result component
@@ -47,9 +46,6 @@ const Results = ({data}: any) => {
                 />
                 ))}
 
-                {/* pagination button will take in the next route as a route and  */}
-                {/* <PaginationLink nextPages={data.serpapi_pagination} /> */}
-                <BasicPagination />
             </div>
         </div>
     </div>

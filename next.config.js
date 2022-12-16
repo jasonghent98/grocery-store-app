@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  experimental: {outputStandalone: true}, // creates a standalone build for production
   images: {
     remotePatterns: [
       {

@@ -1,0 +1,9 @@
+version: "1.0"
+
+services: 
+  app: 
+    image: grocery-store-app-production
+    build: 
+      dockerfile: Dockerfile.production
+    ports:
+      - 3000:3000
