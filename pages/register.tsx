@@ -6,13 +6,9 @@ import Navbar from '../components/Navbar';
 const Register = () => {
   return (
     <div className='h-screen bg-gray-500 flex flex-col justify-center items-center '>
-      
-          
-              <Navbar/>
-          
-      
+      <Navbar/>
       <div className='flex justify-center items-center w-5/6 h-5/6'>
-        <Card/> 
+      <Card isRegister={true} /> 
       </div>
     </div>
   )

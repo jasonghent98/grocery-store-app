@@ -4,9 +4,14 @@ import { signUpUser } from '../../auth/register'
 import { useDispatch } from 'react-redux'
 import { setUserObject } from '../../redux/actions/userActions'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
+
+interface Iprops {
+    isRegister: boolean
+}
 
 // will serve as the card for both the register and the login routes
-const Card = () => {
+const Card = (props: Iprops) => {
     // hooks
     const router = useRouter();
     const dispatch = useDispatch();
@@ -59,7 +64,7 @@ const Card = () => {
         {/* div for the title */}
         <div className='flex flex-col justify-center items-center text-md sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl'> 
             <div className='font-bold'>Welcome</div> <br/>
-            <div className='relative bottom-5 font-semibold'><span>Register Below</span></div>
+            <div className='relative bottom-5 font-semibold'><span>{props.isRegister ? "Register below" : "Login below"}</span></div>
         </div>
         {/* subcard will contain the users credentials */}
         <div className='form-data flex flex-col justify-center items-center gap-y-4 w-5/6 bg-gray-300 rounded-lg'>
@@ -84,24 +89,33 @@ const Card = () => {
                 <input className='rounded-md placeholder:pl-2 pl-2 w-full' type="password" placeholder='Password' id="password" required />
             </div>
 
-            <div 
-                className='flex flex-col justify-around items-center gap-x-3 h-1/3 w-3/4' 
-                onChange={(event) => {
-                    const target = event.target as HTMLTextAreaElement
-                    setConfirmPassword(target.value)
-                 }}>
-                <label className=' w-full text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg' htmlFor="email">Confirm Password:</label>
-                <input className='rounded-md placeholder:pl-2 pl-2 w-full'type="password" placeholder='Confirm Password' id='confirmPassword' required />
-            </div>
 
-            <div 
-                className='flex flex-col justify-around items-center gap-x-3 h-1/3 w-3/4' 
-                onChange={(event) => {
-                    const target = event.target as HTMLTextAreaElement
-                    setPhoneNumber(target.value)
-                 }}>
-                <label className=' w-full text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg' htmlFor="email">Phone Number (Optional): </label>
-                <input className='rounded-md placeholder:pl-2 pl-2 w-full'type="text" placeholder='Phone Number' id='phoneNumber' />
+            { props.isRegister &&  
+            <div className='flex flex-col justify-around items-center gap-x-3 h-1/3 w-3/4'>
+                <div 
+                 className='w-full' 
+                 onChange={(event) => {
+                     const target = event.target as HTMLTextAreaElement
+                     setConfirmPassword(target.value)
+                     }}>
+                    <label className=' w-full text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg' htmlFor="email">Confirm Password:</label>
+                    <input className='rounded-md placeholder:pl-2 pl-2 w-full'type="password" placeholder='Confirm Password' id='confirmPassword' required />
+                </div>
+
+                <div 
+                    className='w-full' 
+                    onChange={(event) => {
+                        const target = event.target as HTMLTextAreaElement
+                        setPhoneNumber(target.value)
+                     }}>
+                    <label className=' w-full text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg' htmlFor="email">Phone Number (Optional): </label>
+                    <input className='rounded-md placeholder:pl-2 pl-2 w-full'type="text" placeholder='Phone Number' id='phoneNumber' />
+                </div>
+            </div>
+            }   
+
+            <div className='hover:text-blue-600'>
+            <Link className="" href={props.isRegister ? '/login' : '/register'}>{props.isRegister ? "Already have an account? Login here" : "Dont have an account? Create one here"}</Link>
             </div>
 
             <div 
@@ -109,9 +123,12 @@ const Card = () => {
                 onClick={onRegisterHandler}>
                 <RouteButton text='Register' route='/'/>
             </div>
+
+
         </div>
 
     </div>
+    
   )
 }
 
