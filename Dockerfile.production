@@ -5,9 +5,9 @@ RUN apk add --no-cache libc6-compat
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY package.json yarn.lock ./
 # ensures the exact version installed in package-lock
-RUN npm install --legacy-peer-deps --frozen-lockfile 
+RUN yarn install --frozen-lockfile 
 
 
 
@@ -22,15 +22,16 @@ WORKDIR /app
 
 # copy the necessary files 
 COPY next.config.js ./
-COPY package.json package-lock.json ./
+COPY package.json yarn.lock ./
 COPY --from=deps /app/node_modules ./node_modules
 
 # source code
-COPY pages ./pages
-COPY public ./public
-COPY styles ./styles
+# COPY pages ./pages
+# COPY public ./public
+# COPY styles ./styles
+COPY . . 
 
-RUN npm run build
+RUN yarn run build
 
 
 

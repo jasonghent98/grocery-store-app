@@ -1,4 +1,3 @@
-import React, {useState} from 'react'
 import useDeepEffect from '../../utility/useDeepEffect'
 import {useSelector, useDispatch} from 'react-redux'
 import type { RootState } from '../../redux/store'

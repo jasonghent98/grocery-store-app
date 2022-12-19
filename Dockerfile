@@ -1,12 +1,15 @@
-FROM node:16-alpine
+FROM node:16 as base
 
-RUN mkdir -p user/app/
-WORKDIR user/app
- 
-COPY ./ ./
+WORKDIR /home/node/app
 
-RUN npm install --legacy-peer-deps
-RUN npm run build 
+COPY package*.json ./
 
-EXPOSE 3000
-CMD ["npm", "run", "dev"]
+RUN yarn install
+
+COPY . .
+
+FROM base as production
+
+ENV NODE_PATH=./build
+
+RUN yarn run build

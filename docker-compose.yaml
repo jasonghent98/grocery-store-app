@@ -1,12 +1,31 @@
-version: '3.8'
+# version: '3.8'
+# services:
+#   app-node:
+#     image: grocery-store-app
+#     build: .
+#     container_name: app-node
+#     ports:
+#       - "3000:3000"
+#     volumes: # adding these volumes to our docker filesystem enables hot-reloading for the dev server
+#     - ./pages:/app/pages
+#     - ./public:/app/public
+#     - ./styles:/app/styles
+
+version: '3.7'
+
 services:
-  app-node:
-    image: grocery-store-app
-    build: .
-    container_name: app-node
+  ts-node-docker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: base
+    volumes:
+      - ./:/home/node/app
+      - ./node_modules:/home/node/app/node_modules
+      - ./.next:/home/node/app/.next
+    container_name: ts-node-docker
+    expose:
+      - "3000"
     ports:
       - "3000:3000"
-    volumes: # adding these volumes to our docker filesystem enables hot-reloading for the dev server
-    - ./pages:/app/pages
-    - ./public:/app/public
-    - ./styles:/app/styles
+    command: yarn run dev
