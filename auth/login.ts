@@ -15,7 +15,7 @@ window.recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
     'size': 'invisible',
     'callback': <T>(response: T): T => {
       // reCAPTCHA solved, allow signInWithPhoneNumber.
-      return onSignInSubmit();
+      return signInWithPhone();
     }
   }, auth);
 

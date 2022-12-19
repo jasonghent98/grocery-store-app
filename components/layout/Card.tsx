@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { setUserObject } from '../../redux/actions/userActions'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import ChooseLoginMethod from './ChooseLoginMethod'
 
 interface Iprops {
     isRegister: boolean
@@ -21,6 +22,7 @@ const Card = (props: Iprops) => {
     const [password, setPassword] = useState<string>('')
     const [confirmPassword, setConfirmPassword] = useState<string>('')
     const [phoneNumber, setPhoneNumber] = useState<string>('')
+    const [isAuthWithPhone, setIsAuthWithPhone] = useState<boolean | null>(null)
 
     // event handler
     const onRegisterHandler = async () => {
@@ -66,7 +68,15 @@ const Card = (props: Iprops) => {
             <div className='font-bold'>Welcome</div> <br/>
             <div className='relative bottom-5 font-semibold'><span>{props.isRegister ? "Register below" : "Login below"}</span></div>
         </div>
-        {/* subcard will contain the users credentials */}
+
+        {/* if login and the user hasnt chosen which auth method they would like, display the option */}
+        {isAuthWithPhone === null && !props.isRegister &&
+            <ChooseLoginMethod/>
+        }
+
+
+        {/* if is register route or user has made an auth choice, show card to authenticate / register*/}
+        { (props.isRegister || isAuthWithPhone !== null)  && 
         <div className='form-data flex flex-col justify-center items-center gap-y-4 w-5/6 bg-gray-300 rounded-lg'>
             <div 
                 className='flex flex-col justify-around items-center gap-x-3 h-1/3 w-3/4 mt-4' 
@@ -75,7 +85,7 @@ const Card = (props: Iprops) => {
                     setEmail(target.value)
                     
                 }}>
-                <label className=' w-full text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg' htmlFor="email">Email:</label>
+                <label className=' w-full text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg font-medium' htmlFor="email">Email</label>
                 <input className='rounded-md placeholder:pl-2 pl-2 w-full' type="text" placeholder='Email' id='email' required />
             </div>
 
@@ -85,7 +95,7 @@ const Card = (props: Iprops) => {
                     const target = event.target as HTMLTextAreaElement
                     setPassword(target.value)
                  }}>
-                <label className=' w-full text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg' htmlFor="email" id='password'>Password:</label>
+                <label className=' w-full text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg font-medium' htmlFor="email" id='password'>Password</label>
                 <input className='rounded-md placeholder:pl-2 pl-2 w-full' type="password" placeholder='Password' id="password" required />
             </div>
 
@@ -98,7 +108,7 @@ const Card = (props: Iprops) => {
                      const target = event.target as HTMLTextAreaElement
                      setConfirmPassword(target.value)
                      }}>
-                    <label className=' w-full text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg' htmlFor="email">Confirm Password:</label>
+                    <label className=' w-full text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg font-medium' htmlFor="email">Confirm Password</label>
                     <input className='rounded-md placeholder:pl-2 pl-2 w-full'type="password" placeholder='Confirm Password' id='confirmPassword' required />
                 </div>
 
@@ -108,7 +118,7 @@ const Card = (props: Iprops) => {
                         const target = event.target as HTMLTextAreaElement
                         setPhoneNumber(target.value)
                      }}>
-                    <label className=' w-full text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg' htmlFor="email">Phone Number (Optional): </label>
+                    <label className=' w-full text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg font-medium' htmlFor="email">Phone Number (Optional) </label>
                     <input className='rounded-md placeholder:pl-2 pl-2 w-full'type="text" placeholder='Phone Number' id='phoneNumber' />
                 </div>
             </div>
@@ -121,11 +131,12 @@ const Card = (props: Iprops) => {
             <div 
                 className='flex justify-center items-center w-1/2 my-4' 
                 onClick={onRegisterHandler}>
-                <RouteButton text='Register' route='/'/>
+                <RouteButton text={props.isRegister ? "Register" : "Login"} route='/'/>
             </div>
 
 
         </div>
+        }
 
     </div>
     
