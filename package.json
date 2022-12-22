@@ -10,6 +10,7 @@
     "lint": "next lint",
     "test": "jest --watch --verbose ./tests",
     "docker-production": "docker-compose -f docker-compose.production.yaml up --build --force-recreate",
+    "build-docker-container": "docker-compose build", 
     "docker-dev": "docker-compose up -d"
   },
   "dependencies": {

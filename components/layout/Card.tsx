@@ -6,6 +6,7 @@ import { setUserObject } from '../../redux/actions/userActions'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import ChooseLoginMethod from './ChooseLoginMethod'
+import PhoneLogin from './phoneLogin'
 
 interface Iprops {
     isRegister: boolean
@@ -22,7 +23,8 @@ const Card = (props: Iprops) => {
     const [password, setPassword] = useState<string>('')
     const [confirmPassword, setConfirmPassword] = useState<string>('')
     const [phoneNumber, setPhoneNumber] = useState<string>('')
-    const [isAuthWithPhone, setIsAuthWithPhone] = useState<boolean | null>(null)
+    const [isAuthWithEmail, setIsAuthWithEmail] = useState<boolean>(false)
+    const [isAuthWithPhone, setIsAuthWithPhone] = useState<boolean>(false)
 
     // event handler
     const onRegisterHandler = async () => {
@@ -69,21 +71,30 @@ const Card = (props: Iprops) => {
             <div className='relative bottom-5 font-semibold'><span>{props.isRegister ? "Register below" : "Login below"}</span></div>
         </div>
 
-        {/* if login and the user hasnt chosen which auth method they would like, display the option */}
-        {isAuthWithPhone === null && !props.isRegister &&
-            <ChooseLoginMethod/>
+        {/* if login card and the user hasnt chosen which auth method they would like, display the option */}
+        {
+        ( (!isAuthWithEmail && !isAuthWithPhone) && !props.isRegister) &&
+            <ChooseLoginMethod setIsAuthWithPhone={setIsAuthWithPhone} setIsAuthWithEmail={setIsAuthWithEmail} />
         }
 
 
-        {/* if is register route or user has made an auth choice, show card to authenticate / register*/}
-        { (props.isRegister || isAuthWithPhone !== null)  && 
+        {
+            isAuthWithPhone && <PhoneLogin />
+        }
+
+
+
+        {/* -- this section should probably be extrapolated into its own component -- */}
+
+
+        {/* if is register route or user has chosen to auth with email, show email and password option*/}
+        { (props.isRegister || isAuthWithEmail)  && 
         <div className='form-data flex flex-col justify-center items-center gap-y-4 w-5/6 bg-gray-300 rounded-lg'>
             <div 
                 className='flex flex-col justify-around items-center gap-x-3 h-1/3 w-3/4 mt-4' 
                 onChange={(event) => {
                     const target = event.target as HTMLTextAreaElement
                     setEmail(target.value)
-                    
                 }}>
                 <label className=' w-full text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg font-medium' htmlFor="email">Email</label>
                 <input className='rounded-md placeholder:pl-2 pl-2 w-full' type="text" placeholder='Email' id='email' required />
@@ -99,7 +110,7 @@ const Card = (props: Iprops) => {
                 <input className='rounded-md placeholder:pl-2 pl-2 w-full' type="password" placeholder='Password' id="password" required />
             </div>
 
-
+            {/* add an additional confirm passsword and add phone number if this is being used as register */}
             { props.isRegister &&  
             <div className='flex flex-col justify-around items-center gap-x-3 h-1/3 w-3/4'>
                 <div 
@@ -125,7 +136,7 @@ const Card = (props: Iprops) => {
             }   
 
             <div className='hover:text-blue-600'>
-            <Link className="" href={props.isRegister ? '/login' : '/register'}>{props.isRegister ? "Already have an account? Login here" : "Dont have an account? Create one here"}</Link>
+                <Link className="" href={props.isRegister ? '/login' : '/register'}>{props.isRegister ? "Already have an account? Login here" : "Dont have an account? Create one here"}</Link>
             </div>
 
             <div 

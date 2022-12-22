@@ -1,0 +1,1 @@
+export const hoverEffectStyles = 'rounded-md hover:cursor-pointer hover:drop-shadow-lg transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-105 duration-300'
