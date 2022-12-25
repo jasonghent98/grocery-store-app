@@ -101,9 +101,10 @@ export default function PersistentDrawerLeft() {
 
   // logout handler
   const logoutHandler = async () => {
-    await signOutUser()
-    dispatch(setUserObject({email: null, uid: null, phoneNumber: null}))   
-    router.push('/home')
+    await signOutUser().then(() => {
+      dispatch(setUserObject({email: null, uid: null, phoneNumber: null}))   
+      router.push('/login')
+    }).catch(err => console.log(err))
   }
 
   return (
@@ -129,8 +130,6 @@ export default function PersistentDrawerLeft() {
         </Toolbar>
       </AppBar>
 
-      {/* if !user, show login and register options */}
-      {!user.email ? 
       <Drawer
         sx={{
             width: drawerWidth,
@@ -203,7 +202,6 @@ export default function PersistentDrawerLeft() {
         </List>
       </Drawer>
 
-      : 
 
       <Drawer
         sx={{
@@ -265,7 +263,6 @@ export default function PersistentDrawerLeft() {
         </List>
         <Divider />
       </Drawer>
-      } 
     </Box>
   );
 }

@@ -1,11 +1,11 @@
-import React, {useState } from 'react'
+import React, {useEffect, useState } from 'react'
 import RouteButton from '../buttons/routeButton'
 
 // auth and register
 import { signUpUser } from '../../auth/register'
 import { signInWithEmail } from '../../auth/login'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setUserObject } from '../../redux/actions/userActions'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -21,6 +21,7 @@ const Card = ({isRegister}: Iprops) => {
     // hooks
     const router = useRouter();
     const dispatch = useDispatch();
+    const currentUser = useSelector((state: any) => state.userManagementState.user)
 
     // state
     const [email, setEmail] = useState<string>('')
@@ -52,9 +53,16 @@ const Card = ({isRegister}: Iprops) => {
 
     const onLoginHandler = async () => {
         const user = await signInWithEmail(email, password);
-        console.log(user, "from login")
-
+        dispatch(setUserObject({
+            email, 
+            uid: '123',
+            phoneNumber: null, // this is email login
+        }))
+        console.log(currentUser)
+        router.push('/')
     }
+
+    useEffect(() => {console.log(currentUser)}, [currentUser.email])
 
   return (
     <div className="flex flex-col gap-y-8 justify-center items-center w-3/5 h-4/5 bg-gray-200 rounded-lg text-black">
