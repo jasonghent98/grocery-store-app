@@ -1,6 +1,10 @@
 import React, {useState } from 'react'
 import RouteButton from '../buttons/routeButton'
+
+// auth and register
 import { signUpUser } from '../../auth/register'
+import { signInWithEmail } from '../../auth/login'
+
 import { useDispatch } from 'react-redux'
 import { setUserObject } from '../../redux/actions/userActions'
 import { useRouter } from 'next/router'
@@ -13,7 +17,7 @@ interface Iprops {
 }
 
 // will serve as the card for both the register and the login routes
-const Card = (props: Iprops) => {
+const Card = ({isRegister}: Iprops) => {
     // hooks
     const router = useRouter();
     const dispatch = useDispatch();
@@ -26,41 +30,30 @@ const Card = (props: Iprops) => {
     const [isAuthWithEmail, setIsAuthWithEmail] = useState<boolean>(false)
     const [isAuthWithPhone, setIsAuthWithPhone] = useState<boolean>(false)
 
-    // event handler
+    // event handlers
+
     const onRegisterHandler = async () => {
         // passwords must match here
         if (password !== confirmPassword) {
             throw new Error('Passwords must match')
             return;
         }
-
-        let user;
-        // phone number is optional
-        if (phoneNumber !== '') {
-           user = await signUpUser(email, password, phoneNumber)
-           // if err out, stop function and prompt user that req failed
-
-           // continue, store user data to redux
-            dispatch(
-                setUserObject({
-                    email, 
-                    uid: user.uid, 
-                    phoneNumber
-                })
-            )
-           router.push('/');
-           return 
-        }
-        user = await signUpUser(email, password)
+        const user = await signUpUser(email, password, phoneNumber)
         dispatch(
-            setUserObject({
+             setUserObject({
                 email, 
                 uid: user.uid, 
-                phoneNumber: null 
+                phoneNumber
             })
         )
-        router.push('/')
-        return
+        router.push('/');
+        return 
+    }
+
+    const onLoginHandler = async () => {
+        const user = await signInWithEmail(email, password);
+        console.log(user, "from login")
+
     }
 
   return (
@@ -68,12 +61,12 @@ const Card = (props: Iprops) => {
         {/* div for the title */}
         <div className='flex flex-col justify-center items-center text-md sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl'> 
             <div className='font-bold'>Welcome</div> <br/>
-            <div className='relative bottom-5 font-semibold'><span>{props.isRegister ? "Register below" : "Login below"}</span></div>
+            <div className='relative bottom-5 font-semibold'><span>{isRegister ? "Register below" : "Login below"}</span></div>
         </div>
 
         {/* if login card and the user hasnt chosen which auth method they would like, display the option */}
         {
-        ( (!isAuthWithEmail && !isAuthWithPhone) && !props.isRegister) &&
+        ( (!isAuthWithEmail && !isAuthWithPhone) && !isRegister) &&
             <ChooseLoginMethod setIsAuthWithPhone={setIsAuthWithPhone} setIsAuthWithEmail={setIsAuthWithEmail} />
         }
 
@@ -88,7 +81,7 @@ const Card = (props: Iprops) => {
 
 
         {/* if is register route or user has chosen to auth with email, show email and password option*/}
-        { (props.isRegister || isAuthWithEmail)  && 
+        { (isRegister || isAuthWithEmail)  && 
         <div className='form-data flex flex-col justify-center items-center gap-y-4 w-5/6 bg-gray-300 rounded-lg'>
             <div 
                 className='flex flex-col justify-around items-center gap-x-3 h-1/3 w-3/4 mt-4' 
@@ -111,7 +104,7 @@ const Card = (props: Iprops) => {
             </div>
 
             {/* add an additional confirm passsword and add phone number if this is being used as register */}
-            { props.isRegister &&  
+            { isRegister &&  
             <div className='flex flex-col justify-around items-center gap-x-3 h-1/3 w-3/4'>
                 <div 
                  className='w-full' 
@@ -136,13 +129,13 @@ const Card = (props: Iprops) => {
             }   
 
             <div className='hover:text-blue-600'>
-                <Link className="" href={props.isRegister ? '/login' : '/register'}>{props.isRegister ? "Already have an account? Login here" : "Dont have an account? Create one here"}</Link>
+                <Link className="" href={isRegister ? '/login' : '/register'}>{isRegister ? "Already have an account? Login here" : "Dont have an account? Create one here"}</Link>
             </div>
 
             <div 
                 className='flex justify-center items-center w-1/2 my-4' 
-                onClick={onRegisterHandler}>
-                <RouteButton text={props.isRegister ? "Register" : "Login"} route='/'/>
+                onClick={isRegister ? onRegisterHandler : onLoginHandler}>
+                <RouteButton text={isRegister ? "Register" : "Login"} route='/'/>
             </div>
 
 
