@@ -47,7 +47,7 @@ const Card = ({isRegister}: Iprops) => {
                 phoneNumber
             })
         )
-        router.push('/');
+        router.push('/home');
         return 
     }
 
@@ -59,7 +59,7 @@ const Card = ({isRegister}: Iprops) => {
             phoneNumber: null, // this is email login
         }))
         console.log(currentUser)
-        router.push('/')
+        router.push('/home')
     }
 
     useEffect(() => {console.log(currentUser)}, [currentUser.email])
