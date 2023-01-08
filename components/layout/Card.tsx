@@ -81,9 +81,8 @@ const Card = ({isRegister}: Iprops) => {
             <ChooseLoginMethod setIsAuthWithPhone={setIsAuthWithPhone} setIsAuthWithEmail={setIsAuthWithEmail} />
         }
 
-
         {
-            isAuthWithPhone && <PhoneLogin />
+            isAuthWithPhone && <div className='h-1/2 w-1/2'><PhoneLogin/></div>
         }
 
         <p className='error'></p>
@@ -145,7 +144,8 @@ const Card = ({isRegister}: Iprops) => {
 
             <div 
                 className='flex justify-center items-center w-1/2 my-4' 
-                onClick={isRegister ? onRegisterHandler : onLoginHandler}>
+                onClick={isRegister ? onRegisterHandler : onLoginHandler}
+                >
                 <RouteButton text={isRegister ? "Register" : "Login"} />
             </div>
 
