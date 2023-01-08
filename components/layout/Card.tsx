@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import ChooseLoginMethod from './ChooseLoginMethod'
 import PhoneLogin from './phoneLogin'
+import { RotateRight } from '@mui/icons-material'
 
 interface Iprops {
     isRegister: boolean
@@ -32,12 +33,10 @@ const Card = ({isRegister}: Iprops) => {
     const [isAuthWithPhone, setIsAuthWithPhone] = useState<boolean>(false)
 
     // event handlers
-
     const onRegisterHandler = async () => {
         // passwords must match here
         if (password !== confirmPassword) {
-            throw new Error('Passwords must match')
-            return;
+            throw new Error('Passwords must match') // exec will stop
         }
         const user = await signUpUser(email, password, phoneNumber)
         dispatch(
@@ -51,21 +50,25 @@ const Card = ({isRegister}: Iprops) => {
         return 
     }
 
-    const onLoginHandler = async () => {
-        const user = await signInWithEmail(email, password);
-        dispatch(setUserObject({
-            email, 
-            uid: '123',
-            phoneNumber: null, // this is email login
-        }))
-        console.log(currentUser)
-        router.push('/home')
+    // firebase api has default page refresh. Struggling with adding custom err handling here
+    const onLoginHandler = async (event: any) => {
+        const user = signInWithEmail(email, password).then((user) => {
+            console.log(user)
+            dispatch(setUserObject({
+                email, 
+                uid: user.uid,
+                phoneNumber: null, // this is email login
+           }))
+           router.push('/home')
+        }).catch(err => {
+            throw new Error("The given user does not exist")
+        })
     }
 
-    useEffect(() => {console.log(currentUser)}, [currentUser.email])
+    // useEffect(() => console.log(currentUser))
 
   return (
-    <div className="flex flex-col gap-y-8 justify-center items-center w-3/5 h-4/5 bg-gray-200 rounded-lg text-black">
+    <div className="flex flex-col gap-y-8 justify-center items-center w-3/5 h-4/5 bg-gray-200 rounded-lg text-black auth-form">
         {/* div for the title */}
         <div className='flex flex-col justify-center items-center text-md sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl'> 
             <div className='font-bold'>Welcome</div> <br/>
@@ -74,7 +77,7 @@ const Card = ({isRegister}: Iprops) => {
 
         {/* if login card and the user hasnt chosen which auth method they would like, display the option */}
         {
-        ( (!isAuthWithEmail && !isAuthWithPhone) && !isRegister) &&
+        ((!isAuthWithEmail && !isAuthWithPhone) && !isRegister) &&
             <ChooseLoginMethod setIsAuthWithPhone={setIsAuthWithPhone} setIsAuthWithEmail={setIsAuthWithEmail} />
         }
 
@@ -83,7 +86,7 @@ const Card = ({isRegister}: Iprops) => {
             isAuthWithPhone && <PhoneLogin />
         }
 
-
+        <p className='error'></p>
 
         {/* -- this section should probably be extrapolated into its own component -- */}
 
@@ -143,7 +146,7 @@ const Card = ({isRegister}: Iprops) => {
             <div 
                 className='flex justify-center items-center w-1/2 my-4' 
                 onClick={isRegister ? onRegisterHandler : onLoginHandler}>
-                <RouteButton text={isRegister ? "Register" : "Login"} route='/'/>
+                <RouteButton text={isRegister ? "Register" : "Login"} />
             </div>
 
 

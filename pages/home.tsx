@@ -3,9 +3,7 @@ import SearchForProducts from '../components/SearchForProducts'
 import Navbar from '../components/Navbar'
 import { useSelector } from 'react-redux'
 import { RootState } from '../redux/store'
-import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import axios from 'axios'
 import { setCookie } from 'cookies-next'
 
 // users can access this page if they are logged in
@@ -35,8 +33,9 @@ const Home: NextPage = () => {
 }
 
 
-Home.getInitialProps = async ({req, res}) => {
+export async function getServerSideProps ({req, res}) {
   if(res) {
+    console.log(res)
     res.writeHead(307, {Location: "/login"})
     res.end()
   } else {

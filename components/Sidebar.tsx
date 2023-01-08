@@ -86,7 +86,7 @@ export default function PersistentDrawerLeft() {
   const router = useRouter()
 
   // state to change UI
-  const user = useSelector((state: RootState) => state.userManagementState.user)
+  const currentUser = useSelector((state: RootState) => state.userManagementState.user)
 
   // to reset the state user object
   const dispatch = useDispatch()
@@ -101,7 +101,7 @@ export default function PersistentDrawerLeft() {
 
   // logout handler
   const logoutHandler = async () => {
-    await signOutUser().then(() => {
+    signOutUser().then(() => {
       dispatch(setUserObject({email: null, uid: null, phoneNumber: null}))   
       router.push('/login')
     }).catch(err => console.log(err))
@@ -130,6 +130,7 @@ export default function PersistentDrawerLeft() {
         </Toolbar>
       </AppBar>
 
+    {(!currentUser.email && !currentUser.phoneNumber) ? 
       <Drawer
         sx={{
             width: drawerWidth,
@@ -148,20 +149,6 @@ export default function PersistentDrawerLeft() {
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
-        <Divider />
-        <List>
-          {['Search Items Nearby'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton onClick={() => router.push('/')} className='hover:text-[#FF6B18] delay-150'>
-                <ListItemIcon >
-                    <SearchIcon />
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
         <List>
           {['About Us'].map((text, index) => (
             <ListItem key={text} disablePadding>
@@ -202,6 +189,7 @@ export default function PersistentDrawerLeft() {
         </List>
       </Drawer>
 
+      :
 
       <Drawer
         sx={{
@@ -263,6 +251,8 @@ export default function PersistentDrawerLeft() {
         </List>
         <Divider />
       </Drawer>
+    }
+
     </Box>
   );
 }

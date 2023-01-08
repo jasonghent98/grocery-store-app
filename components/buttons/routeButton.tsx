@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 
-const RouteButton = ({text, route} : {text: string, route: string}) => {
+const RouteButton = ({text} : {text: string}) => {
 
   return (
   <div data-testid="searchProductsButton" className='flex justify-center items-center bg-[#FF6B18] rounded-md h-full w-full hover:cursor-pointer hover:drop-shadow-lg transition ease-in-out delay-50 hover:-translate-y-1 hover:scale-100 duration-300' onClick={() => console.log('testing')}>

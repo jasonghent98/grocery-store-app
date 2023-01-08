@@ -55,5 +55,5 @@ declare global {
 
 
 export const signInWithEmail = async (email: string, password: string, authValue = auth) => {
-  return signInWithEmailAndPassword(authValue, email, password).then((userCredential) => userCredential.user).catch(err => console.log(err))
+  return signInWithEmailAndPassword(authValue, email, password).then((userCredential) => userCredential.user).catch(err => err)
 }
