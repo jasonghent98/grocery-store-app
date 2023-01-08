@@ -15,7 +15,9 @@ const PhoneLogin = () => {
   const generateRecaptcha = () => {
     window.recaptchaVerifier = new RecaptchaVerifier('recaptcha', {
       'size': 'invisible',
-      'callback': (response: any) => {}
+      'callback': (response: any) => {
+        requestSecurityCode
+      }
     }, auth);
   }
 
@@ -25,7 +27,6 @@ const PhoneLogin = () => {
       setIsAuthCodeSent(true);
       generateRecaptcha();
       const appVerifier = window.recaptchaVerifier;
-      console.log(auth, phoneNumber, appVerifier)
       // will send a security code to the user if the promise resolves
       const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, appVerifier);
       console.log(confirmationResult)
