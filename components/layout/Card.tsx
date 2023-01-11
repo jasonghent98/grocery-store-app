@@ -10,7 +10,7 @@ import { setUserObject } from '../../redux/actions/userActions'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import ChooseLoginMethod from './ChooseLoginMethod'
-import PhoneLogin from './phoneLogin'
+import PhoneLogin from './PhoneLogin'
 import { RotateRight } from '@mui/icons-material'
 
 interface Iprops {

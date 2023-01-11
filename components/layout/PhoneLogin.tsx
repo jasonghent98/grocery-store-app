@@ -3,11 +3,16 @@ import { useState } from 'react'
 import {auth} from '../../auth/firebase'
 import { signInWithPhoneNumber } from 'firebase/auth'
 import { RecaptchaVerifier } from 'firebase/auth'
+import {useDispatch} from "react-redux"
+import {setUserObject} from "../../redux/actions/userActions"
+import Router from 'next/router'
 
 // must be placed outside components
 declare const window: Window & typeof globalThis & {recaptchaVerifier: any, confirmationResult: any}
 
 const PhoneLogin = () => {
+  const dispatch = useDispatch();
+
   const [isAuthCodeSent, setIsAuthCodeSent] = useState<boolean>(false)
   const [phoneNumber, setPhoneNumber] = useState<string>("") 
   const [securityCode, setSecurityCode] = useState<string>("")
@@ -15,22 +20,20 @@ const PhoneLogin = () => {
   const generateRecaptcha = () => {
     window.recaptchaVerifier = new RecaptchaVerifier('recaptcha', {
       'size': 'invisible',
-      'callback': (response: any) => {
-        requestSecurityCode
-      }
+      'callback': (response: any) => {}
     }, auth);
   }
 
   const requestSecurityCode = async (e: any) => {
     // if (phoneNumber.length !== 10) throw new Error("Phone number must be 10 digits")
-
       setIsAuthCodeSent(true);
       generateRecaptcha();
       const appVerifier = window.recaptchaVerifier;
       // will send a security code to the user if the promise resolves
-      const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, appVerifier);
-      console.log(confirmationResult)
-
+      signInWithPhoneNumber(auth, phoneNumber, appVerifier).then((confirmationResult: any) => {
+        window.confirmationResult = confirmationResult
+        console.log(confirmationResult)
+      });
   }
 
   const verifySecurityCode = (event: any) => {
@@ -44,11 +47,20 @@ const PhoneLogin = () => {
 
     confirmationResult.confirm(securityCode).then((result: any) => {
       const user = result.user
+      dispatch(
+        setUserObject({
+          email: null,
+          phoneNumber: user.phoneNumber,
+          uid: user.uid
+        })
+      )
+      Router.push('/home')
+      return user;
     }).catch((err: any) => {
       console.log(err)
     })
-
   }
+  useEffect(() => {console.log(securityCode)}, [securityCode])
 
   return (
     <div className='flex flex-col gap-x-5 bg-gray-200'>
@@ -68,7 +80,12 @@ const PhoneLogin = () => {
         <div>
           <label htmlFor="securityCode">Enter Security Code</label>
         </div>
-         <div className='w-1/2'>
+         <div 
+            className='w-1/2'
+            onChange={(event: any) => {
+              const target = event.target as HTMLTextAreaElement
+              setSecurityCode(target.value)
+            }}>
           <input type="text" id='securityCode' className='bg-gray-300'/>
         </div>
 

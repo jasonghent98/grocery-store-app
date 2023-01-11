@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../redux/store'
 import { useEffect } from 'react'
 import { setCookie } from 'cookies-next'
+import type { NextApiRequest, NextApiResponse } from 'next'
+import Head from 'next/head'
 
 // users can access this page if they are logged in
 const Home: NextPage = () => {
@@ -18,6 +20,9 @@ const Home: NextPage = () => {
 
   return (
     <div className='flex flex-col justify-center items-center bg-gray-300 h-screen'>
+      <Head>
+        <title>Home</title>
+      </Head>
       <Navbar/> 
         
       {/* <Head>
@@ -33,7 +38,7 @@ const Home: NextPage = () => {
 }
 
 
-export async function getServerSideProps ({req, res}) {
+export async function getServerSideProps ({req, res}: {req: NextApiRequest, res: NextApiResponse}) {
   if(res) {
     console.log(res)
     res.writeHead(307, {Location: "/login"})
